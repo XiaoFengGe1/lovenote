@@ -1,0 +1,148 @@
+.lxfMinHeight {
+  min-height: 490px;
+}
+
+.lxfHeaderHeight {
+   max-height: 40px;
+}
+.weixinPic{
+	float:right;
+	margin-right:40px;
+	display: none;
+	z-index: 2;
+	position: relative;
+}
+
+.lxfHeight {
+  width: 900px;
+  min-height: 120px;
+  max-height: 220px;
+}
+
+.lxfMinWidth {
+  min-Width: 600px;
+}
+
+.lxfBtnColor{
+  background-color:#98C3E0 !important;
+}
+
+.lxfImgS{
+  width:50px;
+  height:50px;
+}
+
+.lxfImgM{
+  width:125px;
+  height:125px;
+}
+
+.lxfInputLenS{
+	  width:110px !important;
+}
+
+.lxfInputLenM{
+	  width:200px !important;
+}
+
+.lxfInputLenL{
+	  width:600px !important;
+}
+
+.lxfInline{
+	 display:inline;
+}
+
+.lxfHide{
+	 display:none;
+}
+
+.myblog{
+	position: relative;
+	background-color:#ffffff;
+	margin:20px;
+	padding-left:15px;
+	padding-right:15px;
+	padding-top:15px;
+	padding-bottom:0px;
+	word-break : normal | break-all | keep-all;
+	word-wrap: break-word;
+}
+
+.mySearch{
+	position: relative;
+	background-color:#ffffff;
+	padding-left:20px;
+	padding-right:0px;
+	padding-top:15px;
+	padding-bottom:0px;
+	margin-left:30px;
+	margin-right:0px;
+	margin-top:3px;
+	margin-bottom:3px;
+	word-break : normal | break-all | keep-all;
+	word-wrap: break-word;
+}
+
+.mySearchHeight {
+  min-height: 120px;
+  max-height: 220px;
+}
+.mySearchList{
+	background-color:#f2f0f0;
+	margin-top:10px;
+	padding:0px;
+}
+.mySearchListTitle{
+	background-color:#cccccc;
+	padding:5px;
+	margin-bottom:0px;
+}
+
+.mySearchCheck{
+	background-color:#ffffff;
+	margin-top:10px;
+	padding:18px;
+}
+
+.myblogFooter{
+	position:absolute;
+    bottom:0px; 
+}
+
+.myFontFooter{
+	font-family: '宋体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+	font-size: 15px;
+}
+
+.myFontContent{
+	font-family: '微软雅黑' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+	font-size: 16px;
+	padding-bottom:50px;
+	margin-top:10px;
+	margin-left:10px;
+	margin-right:10px;
+}
+
+.myFontTitle{
+	font-family: '黑体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif ;
+	font-size: 22px !important;
+}
+
+.myShare{
+	padding:5px;
+	width: 100px;
+}
+.myreviewdiv{
+	 min-height: 50px;
+}
+.myreview{
+	 padding:5px;
+	 margin:5px;
+	 margin-left:10px;
+	 margin-right:20px;
+}
+.myreviewHead{
+	 padding:5px;
+	 background-color: #dfdddd;
+}

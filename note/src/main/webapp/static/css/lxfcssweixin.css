@@ -1,0 +1,147 @@
+
+.lxfMinHeight {
+  min-height: 420px;
+}
+
+.lxfHeight {
+  min-height: 220px;
+  max-height: 380px;
+}
+
+.weixinSearchTool{
+ display: none;
+}
+
+.timeChoose{
+ display: none;
+}
+
+.lxfBtnColor{
+  background-color:#98C3E0 !important;
+}
+
+.lxfImgS{
+  width:50px;
+  height:50px;
+}
+
+
+.lxfImgM{
+  width:125px;
+  height:125px;
+}
+
+.lxfInputLenS{
+	  width:25% !important;
+}
+
+
+.lxfInputLenL{
+	 width:75% !important;
+}
+
+.lxfInline{
+	 display:inline !important;
+}
+
+.lxfHide{
+	 display:none !important;
+}
+
+.search-header{
+	margin:5px !important;
+	padding:5px;
+	border: 0px;
+}
+
+.mya{
+	margin:0px;
+	padding:0px;
+	border: 0px;
+}
+
+
+.myspan{
+	margin-left:0px !important;
+	margin-right:0px !important;
+	padding-left:0px !important;
+	padding-right:0px !important;
+	border:0px !important;
+}
+
+.myblog{
+	background-color:#ffffff;
+	margin:20px;
+	padding-left:15px;
+	padding-right:15px;
+	padding-top:15px;
+	padding-bottom:0px;
+	word-break : normal | break-all | keep-all;
+	word-wrap: break-word;
+}
+
+.mySearch{
+	position: relative;
+	background-color:#ffffff;
+	padding-left:20px;
+	padding-right:0px;
+	padding-top:15px;
+	padding-bottom:0px;
+	margin-left:30px;
+	margin-right:0px;
+	margin-top:3px;
+	margin-bottom:3px;
+	word-break : normal | break-all | keep-all;
+	word-wrap: break-word;
+}
+
+.mySearchHeight {
+  min-height: 120px;
+  max-height: 360px;
+}
+.mySearchList{
+	background-color:#f2f0f0;
+	margin-top:10px;
+	padding:0px;
+}
+.mySearchListTitle{
+	background-color:#cccccc;
+	padding:5px;
+	margin-bottom:0px;
+	font-size: 18px !important;
+}
+
+.mySearchCheck{
+	background-color:#ffffff;
+	margin:0px;
+	padding:10px;
+	border: 0px;
+}
+
+.myblogFooter{
+	position:absolute;
+    bottom:0px; 
+}
+
+.myFontFooter{
+	font-family: '宋体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+	font-size: 12px ;
+}
+
+.myFontContent{
+	font-family: '微软雅黑' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+	font-size: 16px;
+	padding-bottom:50px;
+	margin-top:10px;
+	margin-left:10px;
+	margin-right:10px;
+}
+
+.myFontTitle{
+	font-family: '黑体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif ;
+	font-size: 20px !important;
+}
+
+.myShare{
+	padding:5px;
+}

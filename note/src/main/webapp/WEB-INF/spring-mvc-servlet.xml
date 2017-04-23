@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd 
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context.xsd 
+      http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc.xsd
+      http://www.springframework.org/schema/tx
+      http://www.springframework.org/schema/tx/spring-tx.xsd
+      http://www.springframework.org/schema/aop
+      http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 自动扫描com.app基础包下的所有Java组件（Spring会托管所有Java组件的实例化工作） -->
+	<context:component-scan base-package="com.app" />
+
+	<!-- 启用注解配置 -->
+	<context:annotation-config />
+
+	<mvc:annotation-driven validator="validator" />
+	<!-- <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+	    <property name="converters">
+	    <list>
+	        <bean class="com.app.utils.DateConverter" />
+	    </list>
+	    </property>
+	</bean>
+	
+	默认的注解映射的支持
+	<mvc:annotation-driven validator="validator" conversion-service="conversionService"/> -->
+
+	<!-- 静态资源的访问 -->
+	<mvc:resources mapping="/upload/**" location="/upload/" />
+	<mvc:resources mapping="/static/**" location="/static/" />
+	<!-- <mvc:resources mapping="/assets/**" location="/assets/" />
+    <mvc:resources mapping="/img/**" location="/img/" />
+    <mvc:resources mapping="/js/**" location="/js/" />
+    <mvc:resources mapping="/demo/**" location="/demo/" /> -->
+    
+	<!-- 配置视图文件存放位置，以及默认后缀 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/pages/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/admin/*" />
+            <bean class="com.app.interceptor.AuthAdminInterceptor">
+                <property name="excludedUrls">
+                    <list>
+                        <value>login</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    
+	<!-- upload settings -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+		<property name="maxUploadSize" value="4096000"/>
+	</bean>
+
+	<!-- 设置相应字符串编码 -->
+	<bean id="stringConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/plain;charset=UTF-8</value>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 用于将对象转换为 JSON -->
+	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+
+	<!-- Message文件转换器 -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="stringConverter" />
+				<ref bean="jsonConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- ContentNegotiatingViewResolver视图解析器,利用他就可以配置多种返回值 -->
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<!-- 这里是否忽略掉accept header，默认就是false -->
+		<property name="ignoreAcceptHeader" value="true" />
+		<!-- 如果所有的mediaType都没匹配上，就会使用defaultContentType -->
+		<property name="defaultContentType" value="text/html" />
+		<property name="mediaTypes">
+			<map>
+				<entry key="json" value="application/json" />
+				<entry key="xml" value="application/xml" />
+			</map>
+		</property>
+		<!-- 默认使用MappingJacksonJsonView生成jsonview -->
+		<property name="defaultViews">
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+				    <property name="extractValueFromSingleKeyModel" value="true" />
+				</bean>
+				<bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+					<property name="marshaller">
+						<bean class="org.springframework.oxm.xstream.XStreamMarshaller" />
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Spring的Validator用作model验证 -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<!-- 具体采用什么方式进行验证 -->
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+		<!--不设置则默认为classpath下的 ValidationMessages.properties -->
+		<property name="validationMessageSource" ref="validatemessageSource" />
+	</bean>
+
+	<!-- 验证文件的位置 -->
+	<bean id="validatemessageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:validatemessages" />
+		<property name="fileEncodings" value="utf-8" />
+		<property name="cacheSeconds" value="120" />
+	</bean>
+<!-- 139.129.42.233 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/lovenote?characterEncoding=utf-8&amp;useUnicode=true" />
+		<property name="username" value="username" />
+		<property name="password" value="password" />
+		<property name="initialSize" value="30" />
+		<property name="maxActive" value="100" />
+	</bean>
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<!-- <property name="configLocation" value="classpath:hibernate.cfg.xml" /> -->
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.app.model.Money</value>
+				<value>com.app.model.Note</value>
+				<value>com.app.model.Relation</value>
+				<value>com.app.model.Review</value>
+				<value>com.app.model.Type</value>
+				<value>com.app.model.User</value>
+				<value>com.app.model.Zan</value>
+				<value>com.app.model.Record</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props> 
+		</property>
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
+            <property name="dataSource" ref="dataSource" />
+    </bean>
+	<!-- 设定transactionManager -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	
+	<!-- 声明式容器事务管理 ,transaction-manager指定事务管理器为transactionManager -->
+  	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED" rollback-for="Exception" />
+	        <tx:method name="update*" propagation="REQUIRED" rollback-for="Exception" />
+	        <tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>
+	         <tx:method name="addRecord" propagation="REQUIRED" rollback-for="Exception"/>
+	        <tx:method name="*" propagation="REQUIRED" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    
+    <aop:config>
+        <aop:pointcut id="allServiceMethod" expression="execution(* com.app.service.*.*(..))" />
+        <aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
+    </aop:config>
+    
+    <!-- 启动spring事务注解功能 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+</beans>
