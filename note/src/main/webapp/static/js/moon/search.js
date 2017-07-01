@@ -2,14 +2,13 @@ var selectFlag = 0;
 var keyword = "";
 var buttonFlag = 1;
 var selectMsg = 0;
-var toAddress="";
 var showNum =0;
-var progressNum=0;
 var load;
 var nodataAdress = "";
 var keys = 1;
 var titelMap = new Map();
 var contentMap = new Map();
+
 $("#selectAll").on("click",function(){
 	if(selectFlag == 0){
 		selectFlag = 1;
@@ -35,12 +34,12 @@ $("#searchBtn").on("click",function(){
 
 $("#noteBody").on("click",".myblack",function(){
 	var username = getCookie("username");
+	var id ="#black"+$(this).val();
 	if(username!=null&&username!=""){
 		var title =titelMap.get($(this).val());
 		var content = contentMap.get($(this).val());
 		var url = title.split('href="')[1].split('"')[0];
 		var titleName = title.replace(/<[^>]+>/g,"").trim().replace(/\s+/g,"");
-		var id ="#black"+$(this).val();
 		 $.ajax({
 		        type: "POST",
 		        url: "/addBlack",
@@ -77,13 +76,13 @@ $("#noteBody").on("click",".myblack",function(){
 
 $("#noteBody").on("click",".mylove",function(){
 	var username = getCookie("username");
+	var id ="#love"+$(this).val();
 	if(username!=null&&username!=""){
 		var title =titelMap.get($(this).val());
 		var content = contentMap.get($(this).val());
 		var url = title.split('href="')[1].split('"')[0];
 		var titleName = title.replace(/<[^>]+>/g,"").trim().replace(/\s+/g,"");
 		var part = content.replace(/<[^>]+>/g,"").trim().replace(/\s+/g,"");
-		var id ="#love"+$(this).val();
 		part = part.substr(0,150);
 		 $.ajax({
 		        type: "POST",
@@ -117,7 +116,7 @@ $("#noteBody").on("click",".mylove",function(){
 		         }
 		    });
 	}else{
-		layer.tips('请先登录',$("#"+id),{tips: [1, '#3595CC'],time: 2000});
+		layer.tips('请先登录',$(id),{tips: [1, '#3595CC'],time: 2000});
 	}
 });
 
@@ -160,57 +159,50 @@ function getResult(){
 		buttonFlag = 1;
 		return;
 	}
-	showNum = $("#showNum").val();
 	$("#noteBody").html('');
 	if($("#baidu").prop('checked')==true){
-		toAddress = "百度";
-		progressNum = progressNum+1;
-		searchData(toAddress);
+
+		var baiduPage = $("#baiduPage").val();
+		if(baiduPage == "页"){
+			baiduPage = 1;
+		}
+		for(var i=1;i<=baiduPage;i++){
+			searchData("百度",i);
+		}
+		
 	} 
 	if($("#mynet").prop('checked')==true){
-		toAddress = "本站";
-		progressNum = progressNum+1;
-		searchData(toAddress);
+		var mynetPage = $("#mynetPage").val();
+		if(mynetPage == "页"){
+			mynetPage = 1;
+		}
+		for(var i=1;i<=mynetPage;i++){
+			searchData("本站",i);
+		}
 	} 
 	if($("#csdn").prop('checked')==true){
-		toAddress = "CSDN";
-		progressNum = progressNum+1;
-		searchData(toAddress);
+		searchData("CSDN",5);
 	}
 	if($("#jioaben").prop('checked')==true){
-		toAddress = "脚本之家";
-		progressNum = progressNum+1;
-		searchData(toAddress);
+		searchData("脚本之家",5);
 	}
 	if($("#bokeyuan").prop('checked')==true){
-		toAddress = "博客园";
-		progressNum = progressNum+1;
-		searchData(toAddress);
+		searchData("博客园",5);
 	}
 	if($("#sina").prop('checked')==true){
-		toAddress = "新浪博客";
-		progressNum = progressNum+1;
-		searchData(toAddress);
+		searchData("新浪博客",5);
 	}
 	if($("#wangyi").prop('checked')==true){
-		toAddress = "网易博客";
-		progressNum = progressNum+1;
-		searchData(toAddress);
+		searchData("网易博客",5);
 	}
 	if($("#qiandaunli").prop('checked')==true){
-		toAddress = "前端里";
-		progressNum = progressNum+1;
-		searchData(toAddress);
+		searchData("前端里",5);
 	}
 	if($("#manong").prop('checked')==true){
-		toAddress = "码农网";
-		progressNum = progressNum+1;
-		searchData(toAddress);
+		searchData("码农网",5);
 	}
 	if($("#qiandaunkaifa").prop('checked')==true){
-		toAddress = "前端开发网";
-		progressNum = progressNum+1;
-		searchData(toAddress);
+		searchData("前端开发网",5);
 	} 
 	
 	if(nodataAdress.length>1){
@@ -219,12 +211,12 @@ function getResult(){
 }
  
 
-function searchData(Address){
+function searchData(Address,num){
 	 $.ajax({
 	        type: "POST",
 	        url: "/getSearch",
 	        async:true,
-	        data: {keyword:keyword,to:Address,num:showNum},
+	        data: {keyword:keyword,to:Address,num:num},
 	        dataType: "json",
 	        beforeSend: function(XMLHttpRequest){
 	       	   load = layer.load(0, {shade: false});
@@ -237,12 +229,15 @@ function searchData(Address){
 	        	buttonFlag =1;
 	        	var allnum=0;
 	        	if(data.status=="false"){
-	        		 layer.tips('查询异常','#searchBtn',{tips: [2, '#3595CC'],time: 1500});
+	        		 layer.tips(Address+'没有数据','#searchBtn',{tips: [2, '#3595CC'],time: 1500});
 	        		 return;
 	        	}
 	        	if(data.total=="0"){
 	        		nodataAdress = nodataAdress + Address+",";
 	        		  return;
+	        	}
+	        	if(Address == "百度" || Address == "本站"){
+	        		Address = Address +"第"+num+"页";
 	        	}
 	        	var showhtml="";
 	        	$.each(data.data,function(j, item) {

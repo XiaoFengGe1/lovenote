@@ -281,11 +281,11 @@ public class SpanderTool {
 		return list;
 	}
 
-	public List<HashMap<String, String>> getBaidu(String keyword, int num) {
+	public List<HashMap<String, String>> getBaidu(String keyword, int page) {
 		List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 		String keywords = keyword.trim().replaceAll("\\s+", "+");
 		Searcher searcher = new BaiduTool();
-		SearchResult searchResult = searcher.search(keywords, 1);
+		SearchResult searchResult = searcher.search(keywords, page);
 		List<Webpage> webpages = searchResult.getWebpages();
 		if (webpages != null) {
 			for (Webpage webpage : webpages) {

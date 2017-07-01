@@ -287,15 +287,15 @@ public class SearchController {
 		return SpanderTool.getFromCSDN(keyword, num);
 	}
 
-	private List<HashMap<String, String>> fromBaidu(String keyword, int num) {
+	private List<HashMap<String, String>> fromBaidu(String keyword, int page) {
 		SpanderTool SpanderTool = new SpanderTool();
-		return SpanderTool.getBaidu(keyword, num);
+		return SpanderTool.getBaidu(keyword, page);
 	}
 
-	private List<HashMap<String, String>> fromMynet(String keyword, int num) {
+	private List<HashMap<String, String>> fromMynet(String keyword, int page) {
 		List<HashMap<String, String>> listData = new ArrayList<HashMap<String, String>>();
 		String[] keyWords = keyword.toString().split("\\s+");
-		HashMap<String, Object> data = noteService.findMain(keyWords, 1);
+		HashMap<String, Object> data = noteService.findMain(keyWords, page);
 		if (data != null && data.size() > 0) {
 			int size = (Integer) data.get("total");
 			if (size > 0) {

@@ -38,7 +38,7 @@
 			         <option>6</option>
 		      	  </select>
 		      	  <button id="selectAll" class="btn btn-info" autofocus>
-			   		<span class="glyphicon glyphicon-check"></span>&nbsp<strong>全选</strong></button>
+			   		<span class="glyphicon glyphicon-check"></span>&nbsp<strong>全选</strong></button><span>该页面建议用PC浏览</span>
 			   		<label class="checkbox-inline" style="float:right" id="tuijain">网站推荐<span class="glyphicon glyphicon-hand-down"></span></label>
 		      	</label>
 				<p></p>

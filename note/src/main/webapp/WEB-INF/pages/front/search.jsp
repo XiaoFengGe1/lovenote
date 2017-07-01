@@ -25,8 +25,7 @@
 
       	<div class="form-horizontal mySearchCheck">
       			
-				<div class="form-inline lxfInline">
-				<span  class="success">显示条数:</span>
+				<!-- <span  class="success">显示条数:</span>
 	      		  <select class="form-control" style="display:inline" id="showNum">
 			         <option>1</option>
 			         <option>2</option>
@@ -38,15 +37,28 @@
 			         <option>8</option>
 			         <option>9</option>
 		      	  </select>
-		      	  <button id="selectAll" class="form-control btn-info" autofocus>
-			   		<span class="glyphicon glyphicon-check"></span>&nbsp<strong>全选</strong></button>
-		      	</div>
-				<p></p>
+		      	   -->
 				<label class="checkbox-inline">
 				  <input type="checkbox" id="baidu" checked="checked" value="baidu">百度
+				  <select class="" style="display:inline" id="baiduPage">
+			         <option selected>页</option>
+			         <option>1</option>
+			         <option>2</option>
+			         <option>3</option>
+			         <option>4</option>
+			         <option>5</option>
+		      	  </select>
 				</label>
 				<label class="checkbox-inline">
 				  <input type="checkbox" id="mynet" checked="checked" value="mynet">本站
+				  <select class="" style="display:inline" id="mynetPage">
+			         <option selected>页</option>
+			         <option>1</option>
+			         <option>2</option>
+			         <option>3</option>
+			         <option>4</option>
+			         <option>5</option>
+		      	  </select>
 				</label>
 		      	<label class="checkbox-inline">
 				  <input type="checkbox" id="csdn" checked="checked" value="CSDN">CSDN
@@ -55,7 +67,7 @@
 				  <input type="checkbox" id="jioaben"  value="脚本之家">脚本之家
 				</label> -->
 				<label class="checkbox-inline">
-				  <input type="checkbox" id="bokeyuan" checked="checked" value="博客园">博客园
+				  <input type="checkbox" id="bokeyuan"  value="博客园">博客园
 				</label>
 				<label class="checkbox-inline">
 				  <input type="checkbox" id="sina"  value="新浪博客">新浪博客
@@ -64,14 +76,15 @@
 				  <input type="checkbox" id="wangyi" checked="checked" value="网易博客">网易博客
 				</label> -->
 				<label class="checkbox-inline">
-				  <input type="checkbox" id="qiandaunli" checked="checked" value="前端里">前端里
+				  <input type="checkbox" id="qiandaunli" value="前端里">前端里
 				</label>
 				<label class="checkbox-inline">
-				  <input type="checkbox" id="manong" checked="checked" value="码农网">码农网
+				  <input type="checkbox" id="manong"  value="码农网">码农网
 				</label>
 				<label class="checkbox-inline">
-				  <input type="checkbox" id="qiandaunkaifa" checked="checked" value="前端开发网">前端开发网
+				  <input type="checkbox" id="qiandaunkaifa"  value="前端开发网">前端开发网
 				</label>
+				<button id="selectAll" class="btn btn-info" autofocus>&nbsp<strong>全选</strong></button>
 				<label class="checkbox-inline" id="tuijain">网站推荐<span class="glyphicon glyphicon-hand-down"></span></label>
 		 </div>
       	
