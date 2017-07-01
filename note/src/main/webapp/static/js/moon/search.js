@@ -6,6 +6,10 @@ var toAddress="";
 var showNum =0;
 var progressNum=0;
 var load;
+var nodataAdress = "";
+var keys = 1;
+var titelMap = new Map();
+var contentMap = new Map();
 $("#selectAll").on("click",function(){
 	if(selectFlag == 0){
 		selectFlag = 1;
@@ -21,13 +25,102 @@ $("#selectAll").on("click",function(){
 });
 
 $("#tuijain").on("click",function(){
-	 layer.tips('请发邮件至1174254785@qq.com','#tuijain',{tips: [1, '#3595CC'],time: 2200});
+	 layer.tips('请发邮件至442123897@qq.com','#tuijain',{tips: [1, '#3595CC'],time: 2200});
 });
 
 $("#searchBtn").on("click",function(){
 	if(buttonFlag ==0){return;}buttonFlag =0;
 	searchMain();
 });
+
+$("#noteBody").on("click",".myblack",function(){
+	var username = getCookie("username");
+	if(username!=null&&username!=""){
+		var title =titelMap.get($(this).val());
+		var content = contentMap.get($(this).val());
+		var url = title.split('href="')[1].split('"')[0];
+		var titleName = title.replace(/<[^>]+>/g,"").trim().replace(/\s+/g,"");
+		var id ="#black"+$(this).val();
+		 $.ajax({
+		        type: "POST",
+		        url: "/addBlack",
+		        async:true,
+		        data: {titleName:titleName,url:url},
+		        dataType: "json",
+		        beforeSend: function(XMLHttpRequest){
+		        	$(id).attr("disabled", true);
+		       	  	},
+		        complete: function(XMLHttpRequest,textStatus){
+		        	
+		        		},
+		        success:function(data,textStatus){
+		        	if(data.status=="false"){
+		        		layer.tips('服务器异常',$(id),{tips: [1, '#3595CC'],time: 2000});
+		        		 $(id).attr("disabled", false);
+		        	}else if(data.status=="timeout"){
+		        		layer.tips('登录超时',$(id),{tips: [1, '#3595CC'],time: 2000});
+		        		 $(id).attr("disabled", false);
+		        	}else{
+		        		layer.tips('已成功拉黑',$(id),{tips: [1, '#3595CC'],time: 2000});
+		        	}
+		        	   },
+		         error:function(XMLHttpRequest, textStatus, errorThrown){
+		        	 $(id).attr("disabled", false);
+		        	 layer.tips('未知异常',$(id),{tips: [1, '#3595CC'],time: 2000});
+		         }
+		    });
+	}else{
+		layer.tips('请先登录',$(id),{tips: [1, '#3595CC'],time: 2000});
+	}
+
+});
+
+$("#noteBody").on("click",".mylove",function(){
+	var username = getCookie("username");
+	if(username!=null&&username!=""){
+		var title =titelMap.get($(this).val());
+		var content = contentMap.get($(this).val());
+		var url = title.split('href="')[1].split('"')[0];
+		var titleName = title.replace(/<[^>]+>/g,"").trim().replace(/\s+/g,"");
+		var part = content.replace(/<[^>]+>/g,"").trim().replace(/\s+/g,"");
+		var id ="#love"+$(this).val();
+		part = part.substr(0,150);
+		 $.ajax({
+		        type: "POST",
+		        url: "/addLove",
+		        async:true,
+		        data: {titleName:titleName,url:url,content:content,part:part},
+		        dataType: "json",
+		        beforeSend: function(XMLHttpRequest){
+		        	$(id).attr("disabled", true);
+		       	  	},
+		        complete: function(XMLHttpRequest,textStatus){
+		        	
+		        		},
+		        success:function(data,textStatus){
+		        	if(data.status=="false"){
+		        		layer.tips('服务器异常',$(id),{tips: [1, '#3595CC'],time: 2000});
+		        		 $(id).attr("disabled", false);
+		        	}else if(data.status=="timeout"){
+		        		layer.tips('登录超时',$(id),{tips: [1, '#3595CC'],time: 2000});
+		        		 $(id).attr("disabled", false);
+		        	}else if(data.status=="toomany"){
+		        		layer.tips('同名笔记太多,无法保存笔记',$(id),{tips: [1, '#3595CC'],time: 2000});
+			        	
+		        	}else{
+		        		layer.tips('已成功收藏并存入笔记',$(id),{tips: [1, '#3595CC'],time: 2000});
+		        	}
+		        	   },
+		         error:function(XMLHttpRequest, textStatus, errorThrown){
+		        	 layer.tips('未知异常',$(id),{tips: [1, '#3595CC'],time: 2000});
+		        	 $(id).attr("disabled", false);
+		         }
+		    });
+	}else{
+		layer.tips('请先登录',$("#"+id),{tips: [1, '#3595CC'],time: 2000});
+	}
+});
+
 $(this).keydown(function (e){
 	if(e.which == "13"){
 		var focusActId = document.activeElement.id;
@@ -39,6 +132,7 @@ $(this).keydown(function (e){
 });
 
 function searchMain(){
+	nodataAdress = "";
 	keyword = $("#inputSearch").val();
 	keyword = $.trim(keyword);
 	keyword = keyword.replace(/[']/g,"");
@@ -46,6 +140,9 @@ function searchMain(){
 		 layer.tips('请输入关键词','#searchBtn',{tips: [2, '#3595CC'],time: 1000});
 		 buttonFlag = 1;
 	}else{
+		keys = 1;
+		titelMap = new Map();
+		contentMap = new Map();
 		getResult();
 	}
 }
@@ -65,6 +162,16 @@ function getResult(){
 	}
 	showNum = $("#showNum").val();
 	$("#noteBody").html('');
+	if($("#baidu").prop('checked')==true){
+		toAddress = "百度";
+		progressNum = progressNum+1;
+		searchData(toAddress);
+	} 
+	if($("#mynet").prop('checked')==true){
+		toAddress = "本站";
+		progressNum = progressNum+1;
+		searchData(toAddress);
+	} 
 	if($("#csdn").prop('checked')==true){
 		toAddress = "CSDN";
 		progressNum = progressNum+1;
@@ -104,7 +211,11 @@ function getResult(){
 		toAddress = "前端开发网";
 		progressNum = progressNum+1;
 		searchData(toAddress);
-	} 	
+	} 
+	
+	if(nodataAdress.length>1){
+		layer.tips(nodataAdress.substring(0, nodataAdress.length-1)+'没有匹配数据','#searchBtn',{tips: [2, '#3595CC'],time: 1000});
+	}
 }
  
 
@@ -129,20 +240,33 @@ function searchData(Address){
 	        		 layer.tips('查询异常','#searchBtn',{tips: [2, '#3595CC'],time: 1500});
 	        		 return;
 	        	}
-	        	if(data.total==0){
-	        		 layer.tips(toAddress+'没有匹配数据','#searchBtn',{tips: [2, '#3595CC'],time: 1000});
-	        		 return;
+	        	if(data.total=="0"){
+	        		nodataAdress = nodataAdress + Address+",";
+	        		  return;
 	        	}
 	        	var showhtml="";
 	        	$.each(data.data,function(j, item) {
-	        		    var note1='<div class="mySearch mySearchHeight"><h3 class="myFontTitle" style="display:inline;">';
+	        			var isLike = item["isLike"];
+	        			var note0 = "";
+	        			keys = keys+1;
+	        			if(isLike == "true"){
+	        				note0 = '<button class="btn btn-xs glyphicon glyphicon-heart">已收藏</button>';
+	        			}else{
+	        				var ketTemp = ""+keys;
+	        				var bid = "black"+keys;
+	        				var lid = "love"+keys;
+	        				titelMap.set(ketTemp,item["title"]);
+	        				contentMap.set(ketTemp,item["content"]);
+	        				note0 = '<button class="btn btn-xs glyphicon glyphicon-remove myblack" id ='+bid+' value="'+ketTemp+'"></button>&nbsp;<button class="btn btn-xs glyphicon glyphicon-heart-empty mylove" id ='+lid+' value="'+ketTemp+'"></button>&nbsp;&nbsp;';
+	        			}
+	        		    var note1='<div class="mySearch mySearchHeight">'+note0+'<h3 class="myFontTitle" style="display:inline;">';
 	        		    var note2=item["title"]+'</h3>';
-	        		    var note3='<div class="blog-post-meta myFontFooter myblogFooter">'
-	        		    var note4=item["author"]+"</div>";
-	        		    var note5='<div class="myFontContent">';
-	        		    var note6=item["content"]+"</div>";
+	        		    var note3='<div class="myFontContent">';
+	        		    var note4=item["content"]+"</div>";
+	        		    var note5='<div class="blog-post-meta myFontFooter myblogFooter">';
+	        		    var note6=item["author"]+"</div>";
 	        		    var	note7='</div>';
-	        		   showhtml = showhtml+note1+note2+note5+note6+note3+note4+note7;
+	        		   showhtml = showhtml+note1+note2+note3+note4+note5+note6+note7;
 						
 	        	 });
 	        	
@@ -157,3 +281,17 @@ function searchData(Address){
 	         }
 	    });
  }
+
+function getCookie(name){
+	if(document.cookie.length>0){
+		var arr = document.cookie.split("; ");
+		for(var i=0;arr.length;i++){
+			var cookie = arr[i].split("=");
+			if(cookie[0]==name){
+				return cookie[1];
+				break;
+			}
+		}
+	}
+	return "";
+}

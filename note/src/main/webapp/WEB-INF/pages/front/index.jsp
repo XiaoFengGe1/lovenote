@@ -22,7 +22,7 @@
 		   	<input type="text" id="inputSearch" class="form-control lxfInputLenL" placeholder="多个关键词请用空格隔开" autofocus></input>
 		   	<button id="searchBtn" class="form-control btn-info" autofocus>
 		   	<span class="glyphicon glyphicon-search"></span>&nbsp<strong>搜索</strong></button>
-		    <button id="writeBtn" class="form-control lxfInline"  style="display:none;float:right"><span class="glyphicon glyphicon-pencil"></span>&nbsp写笔记</button>
+		    <button id="writeBtn" class="form-control lxfInline"  style="display:inline;float:right"><span class="glyphicon glyphicon-pencil"></span>&nbsp写笔记</button>
       	</div>
       	<div class="form-inline">
       		<p></p>

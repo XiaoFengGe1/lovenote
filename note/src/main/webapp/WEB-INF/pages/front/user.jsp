@@ -7,6 +7,7 @@
 <meta name="keywords" content="笔记,爱笔记,记事本,lovenote,note,love" />
 <title>个人中心</title>
 <link href="/static/css/bootstrap.css" rel="stylesheet">
+<link href="/static/css/jquery.datetimepicker.css" rel="stylesheet">
 <link href="/static/css/blog.css" rel="stylesheet">
 <link href="/static/css/lxfcss.css" rel="stylesheet">
 <style>
@@ -68,9 +69,12 @@
           <div class="sidebar-module ">
              <button class="btn btn-primary" id="classBtn"><span class="glyphicon glyphicon-wrench"></span>&nbsp分类</button>
           </div>
+           <div class="sidebar-module ">
+             <button class="btn btn-primary" id="netBtn"><span class="glyphicon glyphicon-wrench"></span>&nbsp网址</button>
+          </div>
     </div><!-- /.blog-sidebar -->
       
-         <div class="col-sm-8 blog-main">
+         <div class="col-sm-10 blog-main">
 			<div class="blog-header"></div>
 			
           <div class="blog-post" id="userDiv">
@@ -120,7 +124,7 @@
           </div><!-- 个人信息 -->
 
 
-			<div class="blog-post" id="classDiv">
+			<div class="blog-post" id="classDiv" style="display:none">
            	 <h2></h2>
 	            <table class="table">
 				   <caption>分类设置</caption>
@@ -138,6 +142,49 @@
 				</table>
             <p></p>
           </div><!-- /.blog-post -->
+          
+          <div class="blog-post" id="netDiv" style="display:none">
+           	 <h2></h2>
+	            <table class="table">
+				     <caption>
+				     	修改网址信息
+			          </caption>
+				   <tbody>
+				      <tr>
+				      <td width='20%'><select class="form-control dropdown-toggle" style="display:inline" id="netSelect">
+			         		<option>收藏的网址</option>
+			         		<option>黑名单网址</option>
+			          	</select>
+			          </td>
+				      <td>
+						<input class="form-control dropdown-toggle lxfInputLenS" id="datetimepicker1" style="display:inline"  > 
+					 	<span>到</span>
+					 	<input class="form-control dropdown-toggle lxfInputLenS" id="datetimepicker2" style="display:inline" > 
+		      		 </td>
+		      		 <td><input type="text" class="form-control" id="netInput"></input></td>
+				      <td><button class="btn btn-info" id="netSearch"><span class="glyphicon glyphicon-search"></span>&nbsp搜索</button></td>
+				      </tr>
+				     
+				   </tbody>
+				</table>
+				 <table class="table" id="blackAddLine" style="display:none" >
+				 	<tbody >
+				     <tr >
+					 	<td ><input type="text" class="form-control" id="blackInput" placeholder="请输入黑名单网址"></input></td>
+					 	<td ><button class="btn btn-info" id="blackAdd">添加</button></td>
+				 	</tr>
+				   </tbody>
+				 </table>
+				<table class="table">
+				
+				   <tbody id="netShowTable">
+				     
+				   </tbody>
+				</table>
+            <p></p>
+          </div><!-- /.blog-post -->
+          
+          
         </div><!-- /.blog-main -->  
         
     </div><!-- /.container -->
@@ -149,20 +196,8 @@
 <script type="text/javascript" src="/static/extend/umeditor/umeditor.min.js"></script>
 <script type="text/javascript" src="/static/extend/umeditor/lang/zh-cn/zh-cn.js"></script>
 <script src="/static/js/md5.js"></script>
+<script src="/static/js/jquery.datetimepicker.js"></script>
 <script type="text/javascript" src="/static/js/moon/header.js"></script>
 <script src="/static/js/moon/user.js"></script>
-<script >
-var fileFlag = 0;
-function filesize(ele) {
-    // 返回 KB，保留小数点后两位
-    if((ele.files[0].size/1024).toFixed(2)>1024){
-    	fileFlag = 0;
-    	layer.alert("图片不能超过1M");
-    }else{
-    	fileFlag = 1;
-    	$("#myform").submit();
-    }
-}
-</script>
 </body>
 </html>

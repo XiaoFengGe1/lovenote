@@ -10,4 +10,7 @@
   <table-filter match-catalog="lovenote" match-name="user"/>
   <table-filter match-catalog="lovenote" match-name="zan"/>
   <table-filter match-catalog="lovenote" match-name="Record"/>
+  <table-filter match-catalog="lovenote" match-name="DislikeUrl"/>
+  <table-filter match-catalog="lovenote" match-name="LikeUrl"/>
+  <table-filter match-catalog="lovenote" match-name="BlackUrl"/>
 </hibernate-reverse-engineering>

@@ -72,6 +72,10 @@ public class LoginController {
 		}  
 		return "/front/search";
 	}
+	@RequestMapping(value = "/mysearch", method = RequestMethod.GET)
+	public String mysearch(HttpServletRequest request) {
+		return "/front/mysearch";
+	}
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index1(HttpServletRequest request) {
 		String s1 = request.getHeader("user-agent");

@@ -10,9 +10,10 @@ var buttonFlag = 1;
 $(document).ready(function(){
 	init();
 	getMainBlock();
+	//$("#writeBtn").show();
 	if(sessionStorage.isLogin == 1){
 		getToolMsg();
-		$("#writeBtn").show();
+		
 	}else{
 		 layer.tips('爱笔记是一个致力于创建和共享自己的技术笔记的技术网站。登录后能体验更多个性功能。','#searchBtn',{tips: [3, '#3595CC'],time: 5500});
 		$("#selectClass").hide();
@@ -22,10 +23,15 @@ $(document).ready(function(){
 
 
 $("#writeBtn").on("click",function(){
-	if(buttonFlag ==0){return;}buttonFlag =0;
-	sessionStorage.writeNoteId = 0;
-	setButtonEnabled();
-	window.open("/write");
+	var username = getCookie("username");
+	if(username!=null&&username!=""){
+		if(buttonFlag ==0){return;}buttonFlag =0;
+		sessionStorage.writeNoteId = 0;
+		setButtonEnabled();
+		window.open("/write");
+	}else{
+		layer.tips('请先登录',$(this),{tips: [1, '#3595CC'],time: 2000});
+	}
 });
 
 $("#searchToolBtn").on("click",function(){
@@ -482,4 +488,18 @@ function setButtonEnabled(){
 }
 function setButtonEnable(){
 	buttonFlag = 1;
+}
+
+function getCookie(name){
+	if(document.cookie.length>0){
+		var arr = document.cookie.split("; ");
+		for(var i=0;arr.length;i++){
+			var cookie = arr[i].split("=");
+			if(cookie[0]==name){
+				return cookie[1];
+				break;
+			}
+		}
+	}
+	return "";
 }

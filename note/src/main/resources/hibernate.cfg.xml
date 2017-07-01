@@ -20,5 +20,8 @@
         <mapping class="com.app.model.User"/>
         <mapping class="com.app.model.Zan"/>
         <mapping class="com.app.model.Record"/>
+        <mapping class="com.app.model.DislikeUrl"/>
+        <mapping class="com.app.model.LikeUrl"/>
+        <mapping class="com.app.model.BlackUrl"/>
     </session-factory>
 </hibernate-configuration>

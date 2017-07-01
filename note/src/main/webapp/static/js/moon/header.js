@@ -29,6 +29,9 @@ var show=1;
 $("#search").on("click",function(){
 	location.href="/search";
 });
+$("#mysearch").on("click",function(){
+	location.href="/mysearch";
+});
 $("#user").on("click",function(){
 	location.href="/user";
 });
@@ -50,7 +53,7 @@ function setActive(){
 		$("#search").attr("class","blog-nav-item active clickme");
 	}else if(url.indexOf("user")>=0){
 		$("#user").attr("class","blog-nav-item active clickme");
-	}else{
+	}else if(url.indexOf("index")>=0){
 		$("#index").attr("class","blog-nav-item active clickme");
 	}
 }

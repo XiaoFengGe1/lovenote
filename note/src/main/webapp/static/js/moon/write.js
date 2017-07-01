@@ -9,7 +9,11 @@ var title;
 var nowType;
 var buttonFlag = 1;
 $(document).ready(function(){
-	
+	var username = getCookie("username");
+	if(username==null||username==""){
+		location.href="/login";
+		return;
+	}
 	if(sessionStorage.writeNoteId == 0){
 		
 	}else{
@@ -194,4 +198,18 @@ function setButtonEnabled(){
 }
 function setButtonEnable(){
 	buttonFlag = 1;
+}
+
+function getCookie(name){
+	if(document.cookie.length>0){
+		var arr = document.cookie.split("; ");
+		for(var i=0;arr.length;i++){
+			var cookie = arr[i].split("=");
+			if(cookie[0]==name){
+				return cookie[1];
+				break;
+			}
+		}
+	}
+	return "";
 }

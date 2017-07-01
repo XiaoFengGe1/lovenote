@@ -30,6 +30,7 @@ import com.app.service.RecordService;
 import com.app.service.TypeService;
 import com.app.service.UserService;
 import com.app.service.ZanService;
+import com.app.utils.IpUtils;
 
 import net.coobird.thumbnailator.Thumbnails;
 

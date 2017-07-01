@@ -2,13 +2,41 @@
  * 
  */
 var classArray = new Array();
+var netArray = new Array();
 var load ;
 var buttonFlag = 1;
+var nettype = 1;
+
+Date.prototype.Format = function(fmt)   
+{ //author: meizz   
+  var o = {   
+    "M+" : this.getMonth()+1,                 //月份   
+    "d+" : this.getDate(),                    //日   
+    "h+" : this.getHours(),                   //小时   
+    "m+" : this.getMinutes(),                 //分   
+    "s+" : this.getSeconds(),                 //秒   
+    "q+" : Math.floor((this.getMonth()+3)/3), //季度   
+    "S"  : this.getMilliseconds()             //毫秒   
+  };   
+  if(/(y+)/.test(fmt))   
+    fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
+  for(var k in o)   
+    if(new RegExp("("+ k +")").test(fmt))   
+  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+  return fmt;   
+}  
 $(document).ready(function(){
-	$("#classDiv").hide();
+	var username = getCookie("username");
+	if(username==null||username==""){
+		location.href="/login";
+		return;
+	}
 	inputOff();
 	getUserMsg();
 	getClass();
+	var time1 = new Date().Format("yyyy-MM-dd");
+	$('#datetimepicker1').val(time1);
+	$('#datetimepicker2').val(time1);
 });
 $("#fixUser").on("click",function(){
 	if($("#fixUser").html()=="修改信息"){
@@ -73,7 +101,10 @@ $("#fixUser").on("click",function(){
 		        		},
 		        success:function(data,textStatus){ 
 		        	layer.close(load);
-		       	 	if(data.status=="hasname"){
+		        	 if(data.status=="timeout"){
+		        		 layer.tips('登录超时','#netSearch',{tips: [1, '#3595CC'],time: 1000});
+		 				return;
+		 			}else if(data.status=="hasname"){
 		       	 		 layer.tips('用户名已存在，请重新输入','#fixUser',{tips: [1, '#3595CC'],time: 1000});
 		       	 	}else if(data.status=="password"){
 				       	layer.msg('密码修改成功，正在跳转登陆页面');
@@ -126,7 +157,10 @@ $("#addClass").on("click",function(){
 	        		},
 	        success:function(data,textStatus){
 	        			layer.close(load);
-			       	 	if(data.status=="true"){
+	        			 if(data.status=="timeout"){
+	                		 layer.tips('登录超时','#netSearch',{tips: [1, '#3595CC'],time: 1000});
+	         				return;
+	         			}else if(data.status=="true"){
 			       	 		 layer.tips('添加成功','#addClass',{tips: [1, '#3595CC'],time: 1000});
 			       	 		 classArray.push($("#addInput").val());
 			       	 		location.href="/user";
@@ -148,21 +182,167 @@ $("#addClass").on("click",function(){
 	 
 });
 
+$("#netSelect").on("click",function(){
+	var className = $("#netSelect").val();
+	if(className == "收藏的网址"){
+		$("#blackAddLine").hide();
+	}else if(className == "黑名单网址"){
+		$("#blackAddLine").show();
+	}
+});
+
+$("#blackAdd").on("click",function(){
+	var str = $("#blackInput").val();
+	str = str.trim();
+	if(str == "" || str.length < 3 ){
+		layer.tips('请输入网址','#blackAdd',{tips: [1, '#3595CC'],time: 1000});
+		return;
+	}
+	 $("#blackAdd").attr("disabled", true);
+	 $.ajax({
+	        type: "POST",
+	        url: "/addBlack",
+	        async:true,
+	        data: {titleName:"",url:str},
+	        dataType: "json",
+	        beforeSend: function(XMLHttpRequest){
+	        	$("#blackAdd").attr("disabled", true);
+	       	  	},
+	        complete: function(XMLHttpRequest,textStatus){
+	        	
+	        		},
+	        success:function(data,textStatus){
+	        	if(data.status=="false"){
+	        		layer.tips('服务器异常',$("#blackAdd"),{tips: [1, '#3595CC'],time: 2000});
+	        		 $("#blackAdd").attr("disabled", false);
+	        	}else if(data.status=="timeout"){
+	        		layer.tips('登录超时',$("#blackAdd"),{tips: [1, '#3595CC'],time: 2000});
+	        		 $("#blackAdd").attr("disabled", false);
+	        	}else{
+	        		layer.tips('已成功拉黑',$("#blackAdd"),{tips: [1, '#3595CC'],time: 2000});
+	        	}
+	        	   },
+	         error:function(XMLHttpRequest, textStatus, errorThrown){
+	        	 $("#blackAdd").attr("disabled", false);
+	        	 layer.tips('未知异常',$("#blackAdd"),{tips: [1, '#3595CC'],time: 2000});
+	         }
+	    });
+});
+
+$("#netSearch").on("click",function(){
+	var className = $("#netSelect").val();
+	var searchStr = $("#netInput").val();
+	var startTime = $('#datetimepicker1').val();
+	var endTime = $('#datetimepicker2').val();
+	if(startTime == "" || endTime == ""){
+		layer.tips('请输入时间','#netSearch',{tips: [1, '#3595CC'],time: 1000});
+		return;
+	}
+	if(className == "收藏的网址"){
+		nettype = 1;
+	}else if(className == "黑名单网址"){
+		nettype = 2;
+	}
+	$.ajax({
+        type: "POST",
+        url: "/getUrls",
+        async:true,
+        data: {type:nettype,startTime:startTime,endTime:endTime,searchStr:searchStr},
+        dataType: "json",
+        beforeSend: function(XMLHttpRequest){
+       	 load = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+        		},
+        complete: function(XMLHttpRequest,textStatus){
+       	
+        		},
+        success:function(data,textStatus){
+        	 layer.close(load);
+        	 if(data.status=="timeout"){
+        		 layer.tips('登录超时','#netSearch',{tips: [1, '#3595CC'],time: 1000});
+ 				return;
+ 			}else if(data.status=="timeError"){
+ 				 layer.tips('时间参数错误','#netSearch',{tips: [1, '#3595CC'],time: 1000});
+  				return;
+ 			}else {
+ 				if(data.total == "0"){
+ 					 layer.tips('没有数据','#netSearch',{tips: [1, '#3595CC'],time: 1000});
+ 				}else{
+ 					var i = 1;
+ 					$("#netShowTable").html('');
+ 					 $.each(data.data,function(j, item) {
+ 						var id = item["id"];
+ 						var time = item["date"];
+ 						var year = time.substring(0,4);
+ 						var month = time.substring(4,6);
+ 						var day = time.substring(6,8);
+ 						var hour = time.substring(8,10);
+ 						var min = time.substring(10,12);
+ 						var second = time.substring(12,14);
+ 						time = year+"-"+month+"-"+day+" "+hour+":"+min+":"+second;
+ 						var url = item["url"];
+ 						var titel = item["title"];
+ 						if(titel == "" || titel.length < 3){
+ 							titel = url;
+ 						}
+ 						var class1='<tr><td><button class = "btn btn-danger netDelete" id="net'+id+'" value="'+id+'">删除</button></td><td><span>'+i+'、</span></td><td>';
+ 	        		    var class2 = time;
+ 	        		    var class3 = '</td><td><h3><a href = "'+url+'" target="_blank">';
+ 	        		    var class4 = titel;
+ 	        		    var class5 = '</a></h3></td></tr>';
+ 	        		    i = i+1;
+ 	        		   netArray.push(id);
+ 						$("#netShowTable").prepend(class1+class2+class3+class4+class5);
+ 					});
+ 					if(data.total > 25){
+						 layer.tips('最多只显示50条数据','#netSearch',{tips: [1, '#3595CC'],time: 3000});
+					}
+ 				}
+ 				
+ 			}
+       	 	 },
+         error:function(XMLHttpRequest, textStatus, errorThrown){
+       	   layer.close(load);
+       	   layer.msg('服务器错误，请稍后再试');
+         }
+    });
+});
+
 $("#userBtn").on("click",function(){
 	inputOff();
 	$("#fixUser").html("修改信息");
 	getUserMsg();
 	$("#userDiv").show();
 	$("#classDiv").hide();
+	$("#netDiv").hide();
 });
 
 
 $("#classBtn").on("click",function(){
 	$("#userDiv").hide();
 	$("#classDiv").show();
+	$("#netDiv").hide();
 });
 
-$(document).on("click",".classDelete",function(){
+$("#netBtn").on("click",function(){
+	$("#netDiv").show();
+	$("#userDiv").hide();
+	$("#classDiv").hide();
+});
+
+
+$('#datetimepicker1').datetimepicker({
+	lang:'ch',//中文化
+	format:"Y-m-d",
+	timepicker:false,
+});
+$('#datetimepicker2').datetimepicker({
+	lang:'ch',//中文化
+	format:"Y-m-d",
+	timepicker:false,
+});
+
+
+$("#classDiv").on("click",".classDelete",function(){
 	var id = $(this).val();
 	var name = $(this).attr("name");
 	if(name == "其他"){
@@ -172,6 +352,8 @@ $(document).on("click",".classDelete",function(){
 	layer.confirm('删除后，该分类的笔记会成为"其他"', {
 	    btn: ['确定','取消'] //按钮
 	}, function(){
+		var clsssid ="#class"+id;
+		$(clsssid).attr("disabled", true);
 		 $.ajax({
 		        type: "POST",
 		        url: "/deleteClass",
@@ -186,23 +368,73 @@ $(document).on("click",".classDelete",function(){
 		        		},
 		        success:function(data,textStatus){
 		        	 layer.close(load);
-		        	 if(data.status=="true"){
+		        	 if(data.status=="timeout"){
+		        		 layer.tips('登录超时','#netSearch',{tips: [1, '#3595CC'],time: 1000});
+		        		 $(clsssid).attr("disabled", false);
+		 				return;
+		 			}else if(data.status=="true"){
 		 				layer.msg('删除成功');
-		 				location.href="/user";
 		 				return;
 		 			}else{
 		 				layer.msg('服务器错误，请稍后再试');
+		 				$(clsssid).attr("disabled", false);
 		 			}
 		       	 	 },
 		         error:function(XMLHttpRequest, textStatus, errorThrown){
 		       	   layer.close(load);
 		       	   layer.msg('服务器错误，请稍后再试');
+		       	  $(clsssid).attr("disabled", false);
 		         }
 		    });
 	}, function(){
 	
 	});
 });
+
+$("#netDiv").on("click",".netDelete",function(){
+	var id = $(this).val();
+	layer.confirm('确定删除吗？', {
+	    btn: ['确定','取消'] //按钮
+	}, function(){
+		var netid ="#net"+id;
+		$(netid).attr("disabled", true);
+		 $.ajax({
+		        type: "POST",
+		        url: "/deleteUrl",
+		        async:true,
+		        data: {type:nettype,id:id},
+		        dataType: "json",
+		        beforeSend: function(XMLHttpRequest){
+		       	 load = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+		        		},
+		        complete: function(XMLHttpRequest,textStatus){
+		       	
+		        		},
+		        success:function(data,textStatus){
+		        	 layer.close(load);
+		        	 if(data.status=="timeout"){
+		        		 layer.tips('登录超时','#netSearch',{tips: [1, '#3595CC'],time: 1000});
+		        		 $(netid).attr("disabled", false);
+		 				return;
+		 			}else if(data.status=="true"){
+		 				layer.msg('删除成功');
+		 				return;
+		 			}else{
+		 				layer.msg('删除失败');
+		 				 $(netid).attr("disabled", false);
+		 			}
+		       	 	 },
+		         error:function(XMLHttpRequest, textStatus, errorThrown){
+		       	   layer.close(load);
+		       	   layer.msg('服务器错误，请稍后再试');
+		       	 $(netid).attr("disabled", false);
+		         }
+		    });
+	}, function(){
+	
+	});
+});
+
 function getUserMsg(){
 	 $.ajax({
         type: "POST",
@@ -218,7 +450,10 @@ function getUserMsg(){
         		},
         success:function(data,textStatus){
         	 layer.close(load);
-       	 	if(data.status=="false"){
+        	 if(data.status=="timeout"){
+        		 layer.tips('登录超时','#netSearch',{tips: [1, '#3595CC'],time: 1000});
+ 				return;
+ 			}else if(data.status=="false"){
        	 		 layer.msg('信息加载失败，请重新登录');
        	 	}else{
        	 		$("#name").val(data.data.name);
@@ -270,14 +505,14 @@ function getClass(){
 	        success:function(data,textStatus){
 	        	 layer.close(load);
 	        	 $.each(data.data,function(j, item) {
-	        		    var class1='<tr><td>'
+	        		 var id = item["id"];
+	        		    var class1='<tr><td>';
 	        		    var class2 = item["class"];
 	        		    var class3 = '</td><td ><button name = "';
-	        		    var class33 = '" value="';
-	        		    var class4 =item["id"];
-	        		    var class5 = '"class="btn btn-danger classDelete" ><span class="glyphicon glyphicon-remove"></span>&nbsp删除</button></td></tr>'
+	        		    var class4 = '" id = "class'+id+'" value="'+id+'" ';
+	        		    var class5 = 'class="btn btn-danger classDelete" ><span class="glyphicon glyphicon-remove"></span>&nbsp删除</button></td></tr>';
 	        		    classArray.push(class2);
-						$("#classAddEle").prepend(class1+class2+class3+class2+class33+class4+class5);
+						$("#classAddEle").prepend(class1+class2+class3+class2+class3+class4+class5);
 					});
 	               },
 	         error:function(XMLHttpRequest, textStatus, errorThrown){
@@ -317,6 +552,19 @@ function strlen(str){
 	  return str.replace(/[^\x00-\xff]/g,"01").length;
 }
 
+function getCookie(name){
+	if(document.cookie.length>0){
+		var arr = document.cookie.split("; ");
+		for(var i=0;arr.length;i++){
+			var cookie = arr[i].split("=");
+			if(cookie[0]==name){
+				return cookie[1];
+				break;
+			}
+		}
+	}
+	return "";
+}
 
 var timeFormat = function(time, format){
     var t = new Date(time);
@@ -342,5 +590,5 @@ var timeFormat = function(time, format){
                 return tf(t.getSeconds());
                 break;
         }
-    })
+    });
 }
