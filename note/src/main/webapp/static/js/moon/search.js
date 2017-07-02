@@ -254,7 +254,6 @@ function searchData(Address,num){
 	        				contentMap.set(ketTemp,item["content"]);
 	        				note0 = '<button class="btn btn-xs glyphicon glyphicon-remove myblack" id ='+bid+' value="'+ketTemp+'"></button>&nbsp;<button class="btn btn-xs glyphicon glyphicon-heart-empty mylove" id ='+lid+' value="'+ketTemp+'"></button>&nbsp;&nbsp;';
 	        			}
-	        			alert(item["content"]);
 	        		    var note1='<div class="mySearch mySearchHeight">'+note0+'<h3 class="myFontTitle" style="display:inline;">';
 	        		    var note2=item["title"]+'</h3>';
 	        		    var note3='<div class="myFontContent">';
