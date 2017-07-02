@@ -35,6 +35,13 @@ public class StringUtil {
 		return false;
 	}
 
+	public static String toString(String str) {
+		if (str == null) {
+			return "";
+		}
+		return str.trim();
+	}
+
 	public static String getRandom() {
 		return "" + VAR.getSixRandom();
 	}

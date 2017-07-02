@@ -15,7 +15,7 @@ $(document).ready(function(){
 		getToolMsg();
 		
 	}else{
-		 layer.tips('爱笔记是一个致力于创建和共享自己的技术笔记的技术网站。登录后能体验更多个性功能。','#searchBtn',{tips: [3, '#3595CC'],time: 5500});
+		 layer.tips('爱笔记是一个致力于创建和共享自己技术笔记的平台。登录后能体验更多个性功能。','#searchBtn',{tips: [3, '#3595CC'],time: 8800});
 		$("#selectClass").hide();
 		$("#selectUser").hide();
 	}
