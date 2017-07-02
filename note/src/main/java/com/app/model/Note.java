@@ -1,18 +1,17 @@
 package com.app.model;
+
 // Generated 2016-3-21 11:16:01 by Hibernate Tools 4.3.1.Final
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,6 +29,7 @@ public class Note implements java.io.Serializable {
 	private String content;
 	private Date createtime;
 	private String type;
+	// 用做收藏文的网址
 	private String extendone;
 	private String extendtwo;
 	private Integer isdelete;
@@ -39,26 +39,28 @@ public class Note implements java.io.Serializable {
 	private Integer unlike;
 	private Set<Review> reviews = new HashSet<Review>(0);
 
-	public Note(){
-		this.click=0;
-		this.unlike=0;
-		this.likenum=0;
-		this.isdelete=0;
-		this.uname="";
-		this.title="";
-		this.content="";
-		this.type="";
-		this.extendone="";
-		this.extendtwo="";
-		this.part="";
+	public Note() {
+		this.click = 0;
+		this.unlike = 0;
+		this.likenum = 0;
+		this.isdelete = 0;
+		this.uname = "";
+		this.title = "";
+		this.content = "";
+		this.type = "";
+		this.extendone = "";
+		this.extendtwo = "";
+		this.part = "";
 		this.createtime = new Date();
 	}
+
 	public Note(Integer id) {
 		this.id = id;
 	}
 
-	public Note(String uname, String title, String content, Date createtime, String type, String extendone,
-			String extendtwo, Integer isdelete, String part, Integer click, Integer likenum, Integer unlike,
+	public Note(String uname, String title, String content, Date createtime,
+			String type, String extendone, String extendtwo, Integer isdelete,
+			String part, Integer click, Integer likenum, Integer unlike,
 			Set<Review> reviews) {
 		this.uname = uname;
 		this.title = title;
@@ -77,7 +79,6 @@ public class Note implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
@@ -196,13 +197,11 @@ public class Note implements java.io.Serializable {
 		this.unlike = unlike;
 	}
 
-	/*@OneToMany(fetch = FetchType.EAGER, mappedBy = "note")
-	public Set<Review> getReviews() {
-		return this.reviews;
-	}
-
-	public void setReviews(Set<Review> reviews) {
-		this.reviews = reviews;
-	}*/
+	/*
+	 * @OneToMany(fetch = FetchType.EAGER, mappedBy = "note") public Set<Review>
+	 * getReviews() { return this.reviews; }
+	 * 
+	 * public void setReviews(Set<Review> reviews) { this.reviews = reviews; }
+	 */
 
 }

@@ -73,6 +73,7 @@ public class SearchController {
 		String url = request.getParameter("url").toString();
 		String content = request.getParameter("content").toString();
 		String part = request.getParameter("part").toString();
+		String urlTitle = request.getParameter("urlTitle").toString();
 		String title = titleName;
 		if (uname == null) {
 			hashMap.put("status", "timeout");
@@ -104,9 +105,10 @@ public class SearchController {
 		Note note = new Note();
 		note.setUname(uname);
 		note.setTitle(title);
-		note.setContent(content);
+		note.setContent(urlTitle + "<p></p>" + content);
 		note.setType("其他");
 		note.setPart(part);
+		note.setExtendone(urlTitle);
 		noteService.save(note);
 		hashMap.put("status", "true");
 		return hashMap;
@@ -312,7 +314,8 @@ public class SearchController {
 								+ "</em></a>";
 						map.put("title", title);
 						map.put("author", note.getUname());
-						map.put("content", note.getContent());
+						map.put("content", "原文:" + note.getExtendone() + ".摘要:"
+								+ note.getPart());
 						listData.add(map);
 					}
 				}

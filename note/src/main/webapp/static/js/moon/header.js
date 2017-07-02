@@ -53,7 +53,7 @@ function setActive(){
 		$("#search").attr("class","blog-nav-item active clickme");
 	}else if(url.indexOf("user")>=0){
 		$("#user").attr("class","blog-nav-item active clickme");
-	}else if(url.indexOf("index")>=0){
+	}else {
 		$("#index").attr("class","blog-nav-item active clickme");
 	}
 }
