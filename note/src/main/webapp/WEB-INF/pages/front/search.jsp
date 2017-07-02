@@ -63,9 +63,9 @@
 		      	<label class="checkbox-inline">
 				  <input type="checkbox" id="csdn" checked="checked" value="CSDN">CSDN
 				</label>
-				<!-- <label class="checkbox-inline">
+				 <label class="checkbox-inline">
 				  <input type="checkbox" id="jioaben"  value="脚本之家">脚本之家
-				</label> -->
+				</label> 
 				<label class="checkbox-inline">
 				  <input type="checkbox" id="bokeyuan"  value="博客园">博客园
 				</label>
@@ -79,13 +79,13 @@
 				  <input type="checkbox" id="qiandaunli" value="前端里">前端里
 				</label>
 				<label class="checkbox-inline">
-				  <input type="checkbox" id="manong"  value="码农网">码农网
+				  <input type="checkbox" id="manong"  value="码农网">码农
 				</label>
 				<label class="checkbox-inline">
-				  <input type="checkbox" id="qiandaunkaifa"  value="前端开发网">前端开发网
+				  <input type="checkbox" id="qiandaunkaifa"  value="前端开发网">前端开发
 				</label>
-				<button id="selectAll" class="btn btn-info" autofocus>&nbsp<strong>全选</strong></button>
-				<label class="checkbox-inline" id="tuijain">网站推荐<span class="glyphicon glyphicon-hand-down"></span></label>
+				<button id="selectAll" class="btn btn-info btn-sm" autofocus><strong>全选</strong></button>
+				<label class="checkbox-inline" id="tuijain">推荐<span class="glyphicon glyphicon-hand-down"></span></label>
 		 </div>
       	
       </div>
