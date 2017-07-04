@@ -314,8 +314,12 @@ public class SearchController {
 								+ "</em></a>";
 						map.put("title", title);
 						map.put("author", note.getUname());
-						map.put("content", "原文:" + note.getExtendone() + ".摘要:"
-								+ note.getPart());
+						if (StringUtil.isBlank(note.getExtendone())) {
+							map.put("content", note.getPart());
+						} else {
+							map.put("content", "原文:" + note.getExtendone()
+									+ ".摘要:" + note.getPart());
+						}
 						listData.add(map);
 					}
 				}
