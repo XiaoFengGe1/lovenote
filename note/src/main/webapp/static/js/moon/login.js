@@ -3,6 +3,7 @@
  */
 $(document).ready(function(){
 	$("#divFind").hide();
+	$("#autoLogin").attr("checked","checked");
 	autoLogin();
 });
 

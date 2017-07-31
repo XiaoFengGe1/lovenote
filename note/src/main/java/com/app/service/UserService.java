@@ -12,54 +12,53 @@ public class UserService {
 
 	@Resource
 	UserHome userHome;
-	
-	public void save(User user){
+
+	public void save(User user) {
 		userHome.save(user);
 	}
-	
-	public void delete(Integer id){
+
+	public void delete(Integer id) {
 		userHome.delete(id);
 	}
-	
-	public void update(User user){
+
+	public void update(User user) {
 		userHome.update(user);
 	}
-	
-	public User findById(Integer id){
+
+	public User findById(Integer id) {
 		return userHome.findById(id);
 	}
-	
-	public User findByName(String name){
+
+	public User findByName(String name) {
 		return userHome.findByName(name);
 	}
-	
-	public User findByPass(String pass){
+
+	public User findByPass(String pass) {
 		return userHome.findByPass(pass);
 	}
-	
-	
-	public Boolean CheckByEmail(String email){
-		if(userHome.CheckByEmail(email)==null){
+
+	public User findByEmail(String email) {
+		return userHome.CheckByEmail(email);
+	}
+
+	public Boolean CheckByEmail(String email) {
+		if (userHome.CheckByEmail(email) == null) {
 			return false;
-		}else{
+		} else {
 			return true;
 		}
 	}
-	
-	public Boolean CheckByName(String name){
-		if(userHome.CheckByName(name)==null){
+
+	public Boolean CheckByName(String name) {
+		if (userHome.CheckByName(name) == null) {
 			return false;
-		}else{
+		} else {
 			return true;
 		}
 	}
-	
-	public Boolean findPassword(String email,String password){
-		return userHome.findPassword(email, password);
-	}
-	
-	public String login(String account){
+
+	public String login(String account) {
 		return userHome.login(account);
 	}
 
-}	
+}

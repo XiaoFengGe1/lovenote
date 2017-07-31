@@ -320,10 +320,13 @@ public class LoginController {
 		String findPasswordEmail = req.getParameter("email");
 		int regSixNum = VAR.getSixRandom();
 		String findpassword = MD5Util.getMD5(regSixNum + "e2ATh95jd");
-		if (userService.findPassword(findPasswordEmail, findpassword)) { // 邮箱不存在，就发验证码
-			Email email = new Email();
-			email.toAddress(findPasswordEmail, "新密码", "请保管好您的新密码:" + regSixNum
-					+ ",来自www.lovelxf.com。");
+		User user = userService.findByEmail(findPasswordEmail);
+
+		if (user != null) {
+			Email.toAddress(findPasswordEmail, "新密码", "您的新密码是:" + regSixNum
+					+ "，请及时登录并修改密码。来自www.lovelxf.com。");
+			user.setPassword(findpassword);
+			userService.update(user);
 			email = null;
 			flag = "true";
 		} else {
