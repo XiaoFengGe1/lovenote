@@ -61,7 +61,6 @@ public class RecordHome {
 		try {
 			list = jdbcTemplate.query(sql, new BeanPropertyRowMapper(
 					Record.class));
-
 			return list;
 		} catch (RuntimeException re) {
 			re.printStackTrace();

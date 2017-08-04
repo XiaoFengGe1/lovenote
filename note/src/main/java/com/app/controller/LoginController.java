@@ -44,7 +44,6 @@ public class LoginController {
 
 	String flag = "false";
 	String password = "";
-	String email = "";
 	String name = "";
 	String emailData = "";
 	Timer timer = null;
@@ -193,15 +192,12 @@ public class LoginController {
 			timer.schedule(new TimerTask() {
 				@Override
 				public void run() {
-					Email email = new Email();
 					Map<String, String> map = recordService.getData();
 					emailData = "访问IP数:" + map.get("id") + "全网搜点击数:"
 							+ map.get("searchnum") + "首页点击数:"
 							+ map.get("indexnum") + "<br>所有用户"
 							+ map.get("users");
-					email.toAddress("1174254785@qq.com", "爱笔记数据汇报", emailData);
-					email = null;
-					map = null;
+					Email.toAddress("1174254785@qq.com", "爱笔记数据汇报", emailData);
 				}
 			}, 24 * 60 * 60 * 1000, 24 * 60 * 60 * 1000);
 		}
@@ -332,7 +328,6 @@ public class LoginController {
 					+ "，请及时登录并修改密码。来自www.lovelxf.com。");
 			user.setPassword(findpassword);
 			userService.update(user);
-			email = null;
 			flag = "true";
 		} else {
 			flag = "false";
