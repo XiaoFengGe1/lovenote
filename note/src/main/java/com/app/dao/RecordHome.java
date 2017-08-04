@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -55,13 +56,15 @@ public class RecordHome {
 	}
 
 	public List<Record> findByIp(String ip) {
+		List<Record> list = null;
+		String sql = "select * from record where ip = '" + ip + "' limit 0,1 ";
 		try {
-			List<Record> instance = (List<Record>) sessionFactory
-					.getCurrentSession()
-					.createQuery("from Record where ip='" + ip + "'")
-					.uniqueResult();
-			return instance;
+			list = jdbcTemplate.query(sql, new BeanPropertyRowMapper(
+					Record.class));
+
+			return list;
 		} catch (RuntimeException re) {
+			re.printStackTrace();
 			return null;
 		}
 	}
