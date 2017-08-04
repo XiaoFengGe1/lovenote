@@ -19,7 +19,7 @@
 	
       <div class="blog-header">
      	 <div class="form-inline">
-		   	<input type="text" id="inputSearch" class="form-control lxfInputLenL" placeholder="多个关键词请用空格隔开" autofocus></input>
+		   	<input type="text" style="width:200px; height:20px;" id="inputSearch" class="form-control lxfInputLenL" placeholder="多个关键词请用空格隔开" autofocus></input>
 		   	<button id="searchBtn" class="form-control btn-info" autofocus>
 		   	<span class="glyphicon glyphicon-search"></span>&nbsp<strong>搜索</strong></button>
 		    <button id="writeBtn" class="form-control lxfInline"  style="display:inline;float:right"><span class="glyphicon glyphicon-pencil"></span>&nbsp写笔记</button>

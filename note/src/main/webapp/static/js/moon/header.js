@@ -29,6 +29,9 @@ var show=1;
 $("#search").on("click",function(){
 	location.href="/search";
 });
+$("#about").on("click",function(){
+	location.href="/about";
+});
 $("#mysearch").on("click",function(){
 	location.href="/mysearch";
 });
@@ -53,6 +56,8 @@ function setActive(){
 		$("#search").attr("class","blog-nav-item active clickme");
 	}else if(url.indexOf("user")>=0){
 		$("#user").attr("class","blog-nav-item active clickme");
+	}else if(url.indexOf("about")>=0){
+		$("#about").attr("class","blog-nav-item active clickme");
 	}else {
 		$("#index").attr("class","blog-nav-item active clickme");
 	}
