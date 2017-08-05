@@ -112,7 +112,8 @@ public class NoteController {
 
 	@RequestMapping(value = "/getNote", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> getNote(HttpSession session) {
+	public HashMap<String, Object> getNote(HttpSession session,
+			HttpServletRequest request) {
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		try {
 			uname = (String) session.getAttribute("lovelxfName");
@@ -138,6 +139,9 @@ public class NoteController {
 				}
 				note.setClick(note.getClick() + 1);
 				noteService.update(note);
+				String ip = IpUtils.getIpAddr(request);
+				String device = request.getHeader("user-agent");
+				recordService.addRecord(ip, uname, device, 0);
 				hashMap.put("status", "true");
 				hashMap.put("data", note);
 				return hashMap;
