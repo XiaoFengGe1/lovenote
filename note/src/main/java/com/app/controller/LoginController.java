@@ -47,7 +47,7 @@ public class LoginController {
 	String password = "";
 	String name = "";
 	String emailData = "";
-	Timer timer = null;
+	public static Timer timer = null;
 
 	@RequestMapping(value = "/baidu_verify_RLVPqgPGmI.html", method = RequestMethod.GET)
 	public String baidu_verify_RLVPqgPGmI() {
@@ -188,19 +188,18 @@ public class LoginController {
 	@RequestMapping(value = "/email", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String get() {
-		if (timer != null) {
+		if (timer == null) {
 			timer = new Timer();
 			timer.schedule(new TimerTask() {
 				@Override
 				public void run() {
 					Map<String, String> map = recordService.getData();
-					emailData = "访问IP数:" + map.get("id") + "全网搜点击数:"
+					String emailData = "访问IP数:" + map.get("id") + "全网搜点击数:"
 							+ map.get("searchnum") + "首页点击数:"
-							+ map.get("indexnum") + "<br>所有用户"
-							+ map.get("users");
+							+ map.get("indexnum") + "所有用户" + map.get("users");
 					Email.toAddress("1174254785@qq.com", "爱笔记数据汇报", emailData);
 				}
-			}, 24 * 60 * 60 * 1000, 24 * 60 * 60 * 1000);
+			}, 1000, 24 * 60 * 60 * 1000);
 		}
 		Map<String, String> map = recordService.getData();
 		emailData = "访问IP数:" + map.get("id") + "全网搜点击数:" + map.get("searchnum")
