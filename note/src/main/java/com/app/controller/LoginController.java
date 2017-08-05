@@ -298,7 +298,9 @@ public class LoginController {
 			HttpSession session) {
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		String findEmail = req.getParameter("email");
-		if (!userService.CheckByEmail(findEmail)) { // 邮箱不存在，就发验证码
+
+		if (findEmail.matches(VAR.matchEmail)
+				&& !userService.CheckByEmail(findEmail)) { // 邮箱不存在，就发验证码
 			Email email = new Email();
 			int regSixNum = VAR.getSixRandom();
 			session.setAttribute("regSixNum", "" + regSixNum);
@@ -319,21 +321,22 @@ public class LoginController {
 	public HashMap<String, Object> findPassword(HttpServletRequest req) {
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		String findPasswordEmail = req.getParameter("email");
-		int regSixNum = VAR.getSixRandom();
-		String findpassword = MD5Util.getMD5(regSixNum + "e2ATh95jd");
-		User user = userService.findByEmail(findPasswordEmail);
+		flag = "false";
+		if (findPasswordEmail.matches(VAR.matchEmail)) {
+			int regSixNum = VAR.getSixRandom();
+			String findpassword = MD5Util.getMD5(regSixNum + "e2ATh95jd");
+			User user = userService.findByEmail(findPasswordEmail);
 
-		if (user != null) {
-			Email.toAddress(findPasswordEmail, "新密码", "您的新密码是:" + regSixNum
-					+ "，请及时登录并修改密码。来自www.lovelxf.com。");
-			user.setPassword(findpassword);
-			userService.update(user);
-			flag = "true";
-		} else {
-			flag = "false";
+			if (user != null) {
+				Email.toAddress(findPasswordEmail, "新密码", "您的新密码是:" + regSixNum
+						+ "，请及时登录并修改密码。来自www.lovelxf.com。");
+				user.setPassword(findpassword);
+				userService.update(user);
+				flag = "true";
+			} else {
+				flag = "false";
+			}
 		}
-		findPasswordEmail = null;
-		findpassword = null;
 		hashMap.put("status", flag);
 		return hashMap;
 	}

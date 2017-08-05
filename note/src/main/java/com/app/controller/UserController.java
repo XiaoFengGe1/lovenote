@@ -64,6 +64,7 @@ public class UserController {
 			hashMap.put("status", "timeout");
 			return hashMap;
 		}
+		name = StringUtil.getLegalStr(name);
 		if (!(name.equals(uname)) && userService.CheckByName(name)) {
 			hashMap.put("status", "hasname");
 			return hashMap;
@@ -144,6 +145,7 @@ public class UserController {
 			return hashMap;
 		}
 		String addClass = req.getParameter("add");
+		addClass = StringUtil.getLegalStr(addClass);
 		Type type = new Type();
 		type.setClassify(addClass);
 		type.setName(uname);

@@ -86,6 +86,11 @@ public class NoteHome {
 	public HashMap<String, Object> findMain(String[] keys, int pageNum) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<Note> list = null;
+		if (keys == null || keys.length == 0) {
+			map.put("total", 0);
+			map.put("rows", list);
+			return map;
+		}
 		try {
 			String sql1 = "from note as c left join (select DISTINCT id,count(id) as countn from ((select id from note where concat(content,title) like '%"
 					+ keys[0] + "%' and isdelete=0 )";
@@ -143,6 +148,11 @@ public class NoteHome {
 			HashMap hashmap) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<Note> list = null;
+		if (keys == null || keys.length == 0) {
+			map.put("total", 0);
+			map.put("rows", list);
+			return map;
+		}
 		String sql = "";
 		if (hashmap.get("classify").equals("全部")) {
 

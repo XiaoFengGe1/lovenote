@@ -42,7 +42,7 @@ public class Email {
 		// TODO Auto-generated constructor stub
 		Properties properties = new Properties();
 		properties.put("mail.smtp.host", "smtp.qq.com");
-		properties.put("mail.smtp.port", "25");
+		properties.put("mail.smtp.port", "465");
 		properties.put("mail.smtp.auth", "true");
 		// 使用JavaMail发送邮件的5个步骤
 		// 1、创建session
@@ -51,6 +51,9 @@ public class Email {
 		session.setDebug(true);
 		// 2、通过session得到transport对象
 		properties.setProperty("mail.transport.protocol", "smtp");
+		properties.setProperty("mail.smtp.socketFactory.class",
+				"javax.net.ssl.SSLSocketFactory");
+
 		Transport ts = null;
 		try {
 			ts = session.getTransport();
