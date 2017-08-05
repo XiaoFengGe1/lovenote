@@ -1,18 +1,17 @@
 package com.app.model;
+
 // Generated 2016-3-21 11:16:01 by Hibernate Tools 4.3.1.Final
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,12 +32,15 @@ public class User implements java.io.Serializable {
 	private Long tel;
 	private String sex;
 	private Float money;
+	/**
+	 * md5加盐
+	 */
 	private String extendone;
 	private String extendtwo;
 	private Integer isdelete;
 	private String pic;
 	private String content;
-	
+
 	private Integer searchnum;
 	private Integer indexnum;
 	private String ip;
@@ -51,23 +53,23 @@ public class User implements java.io.Serializable {
 
 	private Set<Review> reviews = new HashSet<Review>(0);
 
-	public User(){
-		this.extendone="";
-		this.extendtwo="";
-		this.money=(float) 0;
-		this.rank=0;
-		this.tel=(long) 0;
-		this.name="";
-		this.password="";
-		this.email="";
-		this.sex="";
-		this.isdelete=0;
+	public User() {
+		this.extendone = "";
+		this.extendtwo = "";
+		this.money = (float) 0;
+		this.rank = 0;
+		this.tel = (long) 0;
+		this.name = "";
+		this.password = "";
+		this.email = "";
+		this.sex = "";
+		this.isdelete = 0;
 		this.regtime = new Date();
 		this.pic = "";
 		this.content = "";
-		
-		this.searchnum=0;
-		this.indexnum=0;
+
+		this.searchnum = 0;
+		this.indexnum = 0;
 		this.ip = "";
 		this.qq = (long) 0;
 		this.weixin = "";
@@ -76,20 +78,21 @@ public class User implements java.io.Serializable {
 		this.weixincode = "";
 		this.weibocode = "";
 	}
-	
+
 	public User(Integer id) {
 		this.id = id;
 	}
-	
+
 	public User(String name) {
 		this.name = name;
 	}
-	
-	
-	public User(String name, String password, Date regtime, Integer rank, String email, Long tel, String sex,
-			Float money, String extendone, String extendtwo, Integer isdelete, String pic, String content,
-			Integer searchnum,Integer indexnum,String ip,Long qq,String weixin, String weibo, String qqcode, String weixincode,
-			String weibocode,Set<Review> reviews) {
+
+	public User(String name, String password, Date regtime, Integer rank,
+			String email, Long tel, String sex, Float money, String extendone,
+			String extendtwo, Integer isdelete, String pic, String content,
+			Integer searchnum, Integer indexnum, String ip, Long qq,
+			String weixin, String weibo, String qqcode, String weixincode,
+			String weibocode, Set<Review> reviews) {
 		this.name = name;
 		this.password = password;
 		this.regtime = regtime;
@@ -103,9 +106,9 @@ public class User implements java.io.Serializable {
 		this.isdelete = isdelete;
 		this.pic = pic;
 		this.content = content;
-		
-		this.searchnum=searchnum;
-		this.indexnum=indexnum;
+
+		this.searchnum = searchnum;
+		this.indexnum = indexnum;
 		this.ip = ip;
 		this.qq = qq;
 		this.weixin = weixin;
@@ -113,14 +116,13 @@ public class User implements java.io.Serializable {
 		this.qqcode = qqcode;
 		this.weixincode = weixincode;
 		this.weibocode = weibocode;
-		
+
 		this.reviews = reviews;
-		
+
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
@@ -201,7 +203,7 @@ public class User implements java.io.Serializable {
 	public void setWeixincode(String weixincode) {
 		this.weixincode = weixincode;
 	}
-	
+
 	@Column(name = "weibocode", length = 50)
 	public String getWeibocode() {
 		return weibocode;
@@ -210,7 +212,7 @@ public class User implements java.io.Serializable {
 	public void setWeibocode(String weibocode) {
 		this.weibocode = weibocode;
 	}
-	
+
 	@Column(name = "name", length = 30)
 	public String getName() {
 		return this.name;
@@ -284,6 +286,7 @@ public class User implements java.io.Serializable {
 		this.money = money;
 	}
 
+	// md5加盐
 	@Column(name = "extendone", length = 15)
 	public String getExtendone() {
 		return this.extendone;
@@ -328,6 +331,5 @@ public class User implements java.io.Serializable {
 	public void setContent(String content) {
 		this.content = content;
 	}
-
 
 }

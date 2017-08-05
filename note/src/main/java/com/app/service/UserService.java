@@ -57,7 +57,7 @@ public class UserService {
 		}
 	}
 
-	public String login(String account) {
+	public User login(String account) {
 		return userHome.login(account);
 	}
 

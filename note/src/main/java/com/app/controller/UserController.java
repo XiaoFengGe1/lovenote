@@ -20,7 +20,9 @@ import com.app.model.User;
 import com.app.service.NoteService;
 import com.app.service.TypeService;
 import com.app.service.UserService;
+import com.app.utils.MD5Util;
 import com.app.utils.StringUtil;
+import com.app.utils.VAR;
 
 @Controller
 public class UserController {
@@ -76,16 +78,20 @@ public class UserController {
 			String email = req.getParameter("email");
 			String tel = req.getParameter("tel");
 			String password = req.getParameter("password");
-			String passwordCheck = "562150580a896eca18906e51dda79acc";
 			if (tel.equals("0")) {
 
 			} else {
 				user.setTel(Long.parseLong(tel));
 			}
-			if (password.equals(passwordCheck)) {
-
-			} else {
+			if (!password.equals(VAR.passwordCheck)) {
 				flag = "password";
+				if (StringUtil.isNotBlank(user.getExtendone())) {
+					password = MD5Util.getMD5(password + user.getExtendone());
+				} else {
+					String randomStr = VAR.getRandomString(20);
+					user.setExtendone(randomStr);
+					password = MD5Util.getMD5(password + randomStr);
+				}
 				user.setPassword(password);
 			}
 			user.setEmail(email);
@@ -95,15 +101,6 @@ public class UserController {
 					.toString()));
 			userService.update(user);
 			hashMap.put("status", flag);
-			uname = null;
-			name = null;
-			user = null;
-			flag = null;
-			sex = null;
-			email = null;
-			tel = null;
-			password = null;
-			passwordCheck = null;
 			return hashMap;
 		}
 	}

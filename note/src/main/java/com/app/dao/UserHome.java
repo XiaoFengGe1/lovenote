@@ -136,52 +136,33 @@ public class UserHome {
 		}
 	}
 
-	public String login(String account) {
-		String msg = "";
+	public User login(String account) {
+		User user = null;
 		try {
 			if (account.matches(VAR.matchEmail)) {
-				User user = (User) sessionFactory
+				user = (User) sessionFactory
 						.getCurrentSession()
 						.createQuery(
 								"from User where email='" + account
 										+ "' and isdelete=0").uniqueResult();
-				if (user == null) {
-					msg = "";
-				} else {
-					msg = user.getPassword() + "@@@###" + user.getName()
-							+ "@@@###" + user.getId();
-				}
 			} else if (account.matches(VAR.matchTel)) {
-				User user = (User) sessionFactory
+				user = (User) sessionFactory
 						.getCurrentSession()
 						.createQuery(
 								"from User where tel='" + account
 										+ "' and isdelete=0").uniqueResult();
-				if (user == null) {
-					msg = "";
-				} else {
-					msg = user.getPassword() + "@@@###" + user.getName()
-							+ "@@@###" + user.getId();
-				}
 			} else {
-				User user = (User) sessionFactory
+				user = (User) sessionFactory
 						.getCurrentSession()
 						.createQuery(
 								"from User where name='" + account
 										+ "' and isdelete=0").uniqueResult();
-				if (user == null) {
-					msg = "";
-				} else {
-					msg = user.getPassword() + "@@@###" + user.getName()
-							+ "@@@###" + user.getId();
-				}
 			}
+			return user;
 		} catch (RuntimeException re) {
-			// log.error("get failed", re);
-			// throw re;
-			msg = "";
+			re.printStackTrace();
 		}
-		return msg;
+		return null;
 	}
 
 	/*

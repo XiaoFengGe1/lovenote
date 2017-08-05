@@ -78,6 +78,16 @@ public class StringUtil {
 		return false;
 	}
 
+	/**
+	 * 不为空
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	public static boolean isNotBlank(Object obj) {
+		return !isBlank(obj);
+	}
+
 	public static String toString(String str) {
 		if (str == null) {
 			return "";

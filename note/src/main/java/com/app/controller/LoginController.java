@@ -28,6 +28,7 @@ import com.app.service.TypeService;
 import com.app.service.UserService;
 import com.app.utils.Email;
 import com.app.utils.MD5Util;
+import com.app.utils.StringUtil;
 import com.app.utils.VAR;
 
 @Controller
@@ -231,15 +232,17 @@ public class LoginController {
 		password = request.getParameter("password");
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		try {
-			String result = userService.login(name);
-			if (result.equals("")) {
+			User user = userService.login(name);
+			if (user == null) {
 				hashMap.put("status", "noname");
 				return hashMap;
 			}
-			String[] result2 = result.split("@@@###");
-			if (password.equals(result2[0])) {
-				session.setAttribute("lovelxfName", result2[1]);
-				session.setAttribute("lovelxfId", result2[2]);
+			if (StringUtil.isNotBlank(user.getExtendone())) {
+				password = MD5Util.getMD5(password + user.getExtendone());
+			}
+			if (password.equals(user.getPassword())) {
+				session.setAttribute("lovelxfName", user.getName());
+				session.setAttribute("lovelxfId", user.getId());
 				setCookie(request, resp);
 				flag = "true";
 			} else {
@@ -258,6 +261,10 @@ public class LoginController {
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		if (!userService.CheckByName(user.getName())) {
 			try {
+				String randomStr = VAR.getRandomString(20);
+				user.setExtendone(randomStr);
+				password = MD5Util.getMD5(user.getPassword() + randomStr);
+				user.setPassword(password);
 				userService.save(user);
 				Type type = new Type();
 				type.setClassify("其他");
@@ -324,12 +331,19 @@ public class LoginController {
 		flag = "false";
 		if (findPasswordEmail.matches(VAR.matchEmail)) {
 			int regSixNum = VAR.getSixRandom();
-			String findpassword = MD5Util.getMD5(regSixNum + "e2ATh95jd");
+			String findpassword = MD5Util.getMD5(regSixNum + VAR.passwordSalt);
 			User user = userService.findByEmail(findPasswordEmail);
-
 			if (user != null) {
 				Email.toAddress(findPasswordEmail, "新密码", "您的新密码是:" + regSixNum
 						+ "，请及时登录并修改密码。来自www.lovelxf.com。");
+				if (StringUtil.isNotBlank(user.getExtendone())) {
+					findpassword = MD5Util.getMD5(findpassword
+							+ user.getExtendone());
+				} else {
+					String randomStr = VAR.getRandomString(20);
+					user.setExtendone(randomStr);
+					findpassword = MD5Util.getMD5(findpassword + randomStr);
+				}
 				user.setPassword(findpassword);
 				userService.update(user);
 				flag = "true";

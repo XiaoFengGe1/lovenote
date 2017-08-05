@@ -27,6 +27,11 @@ public class VAR {
 	public static String userName = "";
 	public static String userEmail = "";
 	public static long userAccount = 0;
+	public static String baseStr = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	// 个人中心在保存密码时候传该值代表不修改密码
+	public static String passwordCheck = "562150580a896eca18906e51dda79acc";
+	// 基本密码的加盐
+	public static String passwordSalt = "e2ATh95jd";
 
 	public static int getSixRandom() {
 		int[] array = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -46,9 +51,19 @@ public class VAR {
 		return result;
 	}
 
+	public static String getRandomString(int length) {
+		Random random = new Random();
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < length; i++) {
+			int number = random.nextInt(62);
+			sb.append(baseStr.charAt(number));
+		}
+		return sb.toString();
+	}
+
 	public static void main(String[] args) {
 		String str = "11@fs-.d";
-		System.out.println(str.matches(matchLegal));
+		System.out.println(getRandomString(20));
 		for (int i = 0; i < 0; i++) {
 
 			System.out.println(getSixRandom());
