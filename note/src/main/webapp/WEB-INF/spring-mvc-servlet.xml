@@ -118,14 +118,30 @@
 		<property name="fileEncodings" value="utf-8" />
 		<property name="cacheSeconds" value="120" />
 	</bean>
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/lovenote?characterEncoding=utf-8&amp;useUnicode=true" />
 		<property name="username" value="username" />
 		<property name="password" value="password" />
-		<property name="initialSize" value="30" />
-		<property name="maxActive" value="100" />
-	</bean>
+		<property name="initialSize" value="5" />
+		<property name="maxActive" value="50" />
+		<property name="maxWait" value="2000" />
+		<property name="minIdle" value="5" />
+		<property name="maxIdle" value="50" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="180" />
+		<property name="validationQuery" value="select current_date()" />
+    	<property name="testOnBorrow" value="false"/>
+    	<property name="testOnReturn" value="false"/>
+        <property name="testWhileIdle" value="true" /> 
+        <property name= "timeBetweenEvictionRunsMillis" value="30000" />    
+        <property name= "numTestsPerEvictionRun" value="30" />    
+        <property name="minEvictableIdleTimeMillis" value="1800000" />  
+        <!-- 保证每次操作都有正常的连接池使用,我们来了解一下testWhileIdle参数。这个参数为true时候，表示空闲时是进行验证，
+        检查对象是否有效。然后minEvictableIdleTimeMillis配合timeBetweenEvictionRunsMillis，
+        每过timeBetweenEvictionRunsMillis秒对连接池进行一次检测，将对象闲置时间超过minEvictableIdleTimeMillis秒的对象
+        进行销毁，创建新的对象来取代。这样就能保证时刻都有正常的连接池对象存在。-->
+	 </bean>
 
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<!-- <property name="configLocation" value="classpath:hibernate.cfg.xml" /> -->
