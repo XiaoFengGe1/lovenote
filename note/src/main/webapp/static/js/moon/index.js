@@ -10,7 +10,7 @@ var buttonFlag = 1;
 $(document).ready(function(){
 	init();
 	getMainBlock();
-	//$("#writeBtn").show();
+	$("#writeBtn").hide();
 	if(sessionStorage.isLogin == 1){
 		getToolMsg();
 		

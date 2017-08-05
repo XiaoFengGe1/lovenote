@@ -7,9 +7,12 @@
 <title>lovenote</title>
 <link href="/static/css/bootstrap.css" rel="stylesheet">
 <link href="/static/css/login.css" rel="stylesheet">
+<link href="/static/css/blog.css" rel="stylesheet">
+<link href="/static/css/lxfcss.css" rel="stylesheet">
 </head>
 <body>
-<div class="container">
+<%@ include file="header.jsp"%> 
+<div class="container lxfMinHeight">
       <div class="form-signin" action="">
         <h2 class="form-signin-heading">lovenote</h2>
 		 	<div class="input-group" id="emailDiv">
@@ -37,9 +40,11 @@
         <button class="btn btn-lg btn-primary btn-block"  id="reg">发送验证码</button>
       </div>
     </div> <!-- /container -->
+      <%@ include file="foot.jsp"%>
 <script src="/static/js/jquery-2.2.0.js"></script>
 <script src="/static/extend/layer/layer.js"></script>
 <script src="/static/js/md5.js"></script>
+<script type="text/javascript" src="/static/js/moon/header.js"></script>
 <script src="/static/js/moon/reg.js"></script>
 </body>
 </html>

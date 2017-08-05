@@ -64,6 +64,11 @@ public class LoginController {
 		return "/front/about";
 	}
 
+	@RequestMapping(value = "/message", method = RequestMethod.GET)
+	public String message() {
+		return "/front/message";
+	}
+
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String search(HttpServletRequest request) {
 		String s1 = request.getHeader("user-agent");
@@ -160,6 +165,7 @@ public class LoginController {
 			}
 			return "/front/user";
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "/front/index";
 		}
 	}
@@ -180,6 +186,7 @@ public class LoginController {
 			}
 			return "/front/write";
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "/front/index";
 		}
 	}
@@ -194,10 +201,17 @@ public class LoginController {
 				@Override
 				public void run() {
 					Map<String, String> map = recordService.getData();
-					String emailData = "访问IP数:" + map.get("id") + "全网搜点击数:"
-							+ map.get("searchnum") + "首页点击数:"
-							+ map.get("indexnum") + "所有用户" + map.get("users");
-					Email.toAddress("1174254785@qq.com", "爱笔记数据汇报", emailData);
+					if (map != null) {
+						String emailData = "访问IP数:" + map.get("id") + "全网搜点击数:"
+								+ map.get("searchnum") + "首页点击数:"
+								+ map.get("indexnum") + "所有用户"
+								+ map.get("users");
+						Email.toAddress("1174254785@qq.com", "爱笔记数据汇报",
+								emailData);
+					} else {
+						Email.toAddress("1174254785@qq.com", "爱笔记数据汇报",
+								"获取数据异常");
+					}
 				}
 			}, 1000, 24 * 60 * 60 * 1000);
 		}
@@ -248,6 +262,7 @@ public class LoginController {
 				flag = "false";
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			flag = "false";
 		}
 		hashMap.put("status", flag);
@@ -272,6 +287,7 @@ public class LoginController {
 				typeService.save(type);
 				flag = "true";
 			} catch (Exception e) {
+				e.printStackTrace();
 				flag = "false";
 			}
 			hashMap.put("status", flag);

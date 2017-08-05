@@ -172,7 +172,7 @@ function getClass(){
 	        	 layer.close(load);
 	        	 if(data.status=="timeout"){
 		        		layer.msg('页面过期，正在刷新页面');
-		        		location.href= "/index";
+		        		location.href= "/login";
 		        		return;
 		        	}else{
 		        		 $.each(data.data,function(j, item) {

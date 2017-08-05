@@ -118,6 +118,7 @@ public class NoteController {
 		try {
 			uname = (String) session.getAttribute("lovelxfName");
 		} catch (Exception e) {
+			e.printStackTrace();
 			uname = "";
 		}
 		String idStr = (String) session.getAttribute("lovelxfNoteId");
@@ -127,7 +128,6 @@ public class NoteController {
 			note = noteService.findById(id);
 			if (note == null) {
 				hashMap.put("status", "false");
-				idStr = null;
 				return hashMap;
 			} else {
 				if (zanService.isExist(uname, id) == true) {// 借用part来给前端判断是否为本人查看
@@ -147,6 +147,7 @@ public class NoteController {
 				return hashMap;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			hashMap.put("status", "false");
 			return hashMap;
 		}
@@ -168,6 +169,7 @@ public class NoteController {
 			hashMap.put("status", "true");
 			return hashMap;
 		} catch (Exception e) {
+			e.printStackTrace();
 			hashMap.put("status", "false");
 			return hashMap;
 		}
@@ -182,6 +184,7 @@ public class NoteController {
 		try {
 			uname = (String) session.getAttribute("lovelxfName");
 		} catch (Exception e) {
+			e.printStackTrace();
 			uname = "";
 		}
 		addClick(req, uname);
@@ -195,6 +198,7 @@ public class NoteController {
 			hashMap.put("data", data);
 			return hashMap;
 		} catch (Exception e) {
+			e.printStackTrace();
 			hashMap.put("status", "false");
 			return hashMap;
 		}
@@ -209,6 +213,7 @@ public class NoteController {
 		try {
 			uname = (String) session.getAttribute("lovelxfName");
 		} catch (Exception e) {
+			e.printStackTrace();
 			uname = "";
 		}
 		addClick(req, uname);
@@ -220,6 +225,7 @@ public class NoteController {
 			hashMap.put("data", data);
 			return hashMap;
 		} catch (Exception e) {
+			e.printStackTrace();
 			hashMap.put("status", "false");
 			return hashMap;
 		}
@@ -233,6 +239,7 @@ public class NoteController {
 		try {
 			uname = (String) session.getAttribute("lovelxfName");
 		} catch (Exception e) {
+			e.printStackTrace();
 			uname = "";
 		}
 		// Note note = new Note();
@@ -264,6 +271,7 @@ public class NoteController {
 			hashMap.put("data", data);
 			return hashMap;
 		} catch (Exception e) {
+			e.printStackTrace();
 			hashMap.put("status", "false");
 			return hashMap;
 		}
@@ -277,6 +285,7 @@ public class NoteController {
 		try {
 			uname = (String) session.getAttribute("lovelxfName");
 		} catch (Exception e) {
+			e.printStackTrace();
 			uname = "";
 		}
 		// Note note = new Note();
@@ -305,6 +314,7 @@ public class NoteController {
 			hashMap.put("data", data);
 			return hashMap;
 		} catch (Exception e) {
+			e.printStackTrace();
 			hashMap.put("status", "false");
 			return hashMap;
 		}
@@ -327,6 +337,7 @@ public class NoteController {
 			hashMap.put("status", "true");
 			return hashMap;
 		} catch (Exception e) {
+			e.printStackTrace();
 			hashMap.put("status", "false");
 			return hashMap;
 		}
@@ -350,11 +361,13 @@ public class NoteController {
 				zan.setUname(uname);
 				zanService.save(zan);
 			} catch (Exception e) {
+				e.printStackTrace();
 				uname = "";
 			}
 			hashMap.put("status", "true");
 			return hashMap;
 		} catch (Exception e) {
+			e.printStackTrace();
 			hashMap.put("status", "false");
 			return hashMap;
 		}
@@ -367,6 +380,7 @@ public class NoteController {
 		try {
 			uname = (String) session.getAttribute("lovelxfName");
 		} catch (Exception e) {
+			e.printStackTrace();
 			uname = "";
 		}
 		if (uname.equals("")) {

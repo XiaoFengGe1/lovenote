@@ -22,6 +22,7 @@ $(document).ready(function(){
 	        success:function(data,textStatus){
 	        	layer.close(load);
 	        	if(data.status=="false"){
+	        		alert(333);
 	        		 location.href="/index";
 	        		 return;
 	        	}
@@ -174,6 +175,7 @@ function getReview(){
 	        success:function(data,textStatus){
 	        	layer.close(load);
 	        	if(data.status=="false"){
+	        		alert(222);
 	        		 location.href="/index";
 	        		 return;
 	        	}

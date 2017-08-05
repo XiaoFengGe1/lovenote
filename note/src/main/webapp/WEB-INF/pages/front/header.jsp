@@ -3,7 +3,7 @@
 	<div class="blog-masthead lxfHeaderHeight">
       <div class="container">
         <nav class="blog-nav">
-          <a class="blog-nav-item" id="quitAPP">
+          <a class="blog-nav-item clickme" id="quitAPP">
           
           <%
           if(session.getAttribute("lovelxfName") == null) {  
@@ -19,7 +19,7 @@
           <a class="blog-nav-item btn" id="weixin" style="float:right"><span class="glyphicon glyphicon-qrcode"></span>&nbsp;微信公众号</a>
           <!-- <a class="blog-nav-item" style="float:right" href="/static/res/lovenote.apk"><span class="glyphicon glyphicon-save"></span>&nbsp;Android版下载</a> -->
           <a class="blog-nav-item" id="about" style="float:right" href="#">&nbsp;关于</a>
-      		
+      	  <a class="blog-nav-item" id="message" style="float:right" href="#">留言板</a>
         </nav>
       </div>
         <img alt="" id="weixinPic" class="weixinPic" src="/static/img/weixin.jpg">

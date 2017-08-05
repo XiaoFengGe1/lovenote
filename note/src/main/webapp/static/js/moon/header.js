@@ -32,6 +32,9 @@ $("#search").on("click",function(){
 $("#about").on("click",function(){
 	location.href="/about";
 });
+$("#message").on("click",function(){
+	location.href="/message";
+});
 $("#mysearch").on("click",function(){
 	location.href="/mysearch";
 });
@@ -58,6 +61,12 @@ function setActive(){
 		$("#user").attr("class","blog-nav-item active clickme");
 	}else if(url.indexOf("about")>=0){
 		$("#about").attr("class","blog-nav-item active clickme");
+	}else if(url.indexOf("login")>=0){
+		$("#quitAPP").attr("class","blog-nav-item active clickme");
+	}else if(url.indexOf("reg")>=0){
+		$("#quitAPP").attr("class","blog-nav-item active clickme");
+	}else if(url.indexOf("message")>=0){
+		$("#message").attr("class","blog-nav-item active clickme");
 	}else {
 		$("#index").attr("class","blog-nav-item active clickme");
 	}

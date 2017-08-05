@@ -17,13 +17,13 @@ import com.app.service.RecordService;
 import com.app.service.UserService;
 
 @Controller
-public class MySearchController {
+public class MessageController {
 	@Resource
 	private UserService userService;
 	@Resource
 	private RecordService recordService;
 
-	@RequestMapping(value = "/getMySearch", method = RequestMethod.POST)
+	@RequestMapping(value = "/getMessage", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> getSearch(HttpSession session,
 			HttpServletRequest request) {

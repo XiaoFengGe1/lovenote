@@ -36,6 +36,7 @@ public class ReviewController {
 			hashMap.put("data", map.get("rows"));
 			return hashMap;
 		} catch (Exception e) {
+			e.printStackTrace();
 			hashMap.put("status", "false");
 			return hashMap;
 		}
