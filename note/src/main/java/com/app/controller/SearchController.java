@@ -183,16 +183,9 @@ public class SearchController {
 				hashMap.put("total", "" + list.size());
 			}
 			hashMap.put("data", list);
-			ip = null;
-			name = null;
-			device = null;
-			keyword = null;
-			toAddress = null;
-			list = null;
 			return hashMap;
 		} catch (Exception e) {
 			e.printStackTrace();
-			list = null;
 			hashMap.put("status", "false");
 			return hashMap;
 		}

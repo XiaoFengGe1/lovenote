@@ -50,8 +50,6 @@ public class UserController {
 		User user = userService.findByName(uname);
 		hashMap.put("status", "true");
 		hashMap.put("data", user);
-		uname = null;
-		user = null;
 		return hashMap;
 	}
 
@@ -121,13 +119,9 @@ public class UserController {
 			detail.put("class", data.get(i).getClassify());
 			detail.put("id", data.get(i).getId());
 			list.add(detail);
-			detail = null;
 		}
 		hashMap.put("status", "true");
 		hashMap.put("data", list);
-		uname = null;
-		data = null;
-		list = null;
 		return hashMap;
 	}
 
@@ -148,9 +142,6 @@ public class UserController {
 		type.setName(uname);
 		typeService.save(type);
 		hashMap.put("status", "true");
-		uname = null;
-		addClass = null;
-		type = null;
 		return hashMap;
 	}
 
@@ -169,9 +160,6 @@ public class UserController {
 		typeService.delete(Integer.parseInt(id));
 		noteService.fixType(className, uname);
 		hashMap.put("status", "true");
-		uname = null;
-		id = null;
-		className = null;
 		return hashMap;
 	}
 

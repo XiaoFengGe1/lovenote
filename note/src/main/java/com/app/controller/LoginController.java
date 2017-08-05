@@ -370,7 +370,6 @@ public class LoginController {
 				}
 			}
 		}
-		cookies = null;
 		session.invalidate();// 清空session
 		hashMap.put("status", "true");
 		return hashMap;
@@ -381,9 +380,7 @@ public class LoginController {
 		response.setContentType("text/html; charset=utf-8");
 		String username = request.getParameter("account");
 		String password = request.getParameter("password");
-		if (request.getParameter("autoLogin") != null
-				&& request.getParameter("autoLogin").equals("1")) {
-
+		if ("1".equals(request.getParameter("autoLogin"))) {
 			try {
 				username = URLEncoder.encode(username, "UTF-8");// 解决中文乱码问题-----无效！！！
 			} catch (UnsupportedEncodingException e) {

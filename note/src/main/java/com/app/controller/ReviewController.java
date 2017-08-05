@@ -34,9 +34,6 @@ public class ReviewController {
 			hashMap.put("status", "true");
 			hashMap.put("total", map.get("total"));
 			hashMap.put("data", map.get("rows"));
-			page = null;
-			idStr = null;
-			map = null;
 			return hashMap;
 		} catch (Exception e) {
 			hashMap.put("status", "false");
@@ -64,10 +61,6 @@ public class ReviewController {
 			reviewService.save(review);
 			hashMap.put("status", "true");
 			hashMap.put("noteid", noteid);
-			name = null;
-			noteid = null;
-			content = null;
-			review = null;
 			return hashMap;
 		}
 	}
