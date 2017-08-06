@@ -23,5 +23,7 @@
         <mapping class="com.app.model.DislikeUrl"/>
         <mapping class="com.app.model.LikeUrl"/>
         <mapping class="com.app.model.BlackUrl"/>
+        <mapping class="com.app.model.Message"/>
+        
     </session-factory>
 </hibernate-configuration>

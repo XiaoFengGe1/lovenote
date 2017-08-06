@@ -88,7 +88,7 @@ public class Note implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "uname", length = 30)
+	@Column(name = "uname", length = 64)
 	public String getUname() {
 		return this.uname;
 	}
@@ -134,7 +134,7 @@ public class Note implements java.io.Serializable {
 		this.type = type;
 	}
 
-	@Column(name = "extendone", length = 15)
+	@Column(name = "extendone", length = 64)
 	public String getExtendone() {
 		return this.extendone;
 	}
@@ -143,7 +143,7 @@ public class Note implements java.io.Serializable {
 		this.extendone = extendone;
 	}
 
-	@Column(name = "extendtwo", length = 15)
+	@Column(name = "extendtwo", length = 64)
 	public String getExtendtwo() {
 		return this.extendtwo;
 	}

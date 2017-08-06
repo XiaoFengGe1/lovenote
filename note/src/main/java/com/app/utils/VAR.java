@@ -33,6 +33,19 @@ public class VAR {
 	// 基本密码的加盐
 	public static String passwordSalt = "e2ATh95jd";
 
+	/**
+	 * Description: 留言板初始化的大小
+	 * 
+	 * @created 2017-8-6 上午10:18:21
+	 */
+	public static int messageInitNum = 50;
+	/**
+	 * Description: 留言板每次获取的步长
+	 * 
+	 * @created 2017-8-6 上午10:18:21
+	 */
+	public static int messageStep = 50;
+
 	public static int getSixRandom() {
 		int[] array = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 		Random rand = new Random();

@@ -22,7 +22,6 @@ $(document).ready(function(){
 	        success:function(data,textStatus){
 	        	layer.close(load);
 	        	if(data.status=="false"){
-	        		alert(333);
 	        		 location.href="/index";
 	        		 return;
 	        	}
@@ -57,7 +56,6 @@ $("#editNote").on("click",function(){
 });
 
 $("#sendreview").on("click",function(){
-	if(buttonFlag ==0){return;}buttonFlag =0;
 	if(sessionStorage.isLogin==0){
 		layer.tips('请登录','#sendreview',{tips: [2, '#3595CC'],time: 2000});
 		return
@@ -66,6 +64,7 @@ $("#sendreview").on("click",function(){
 		layer.tips('请输入评论','#sendreview',{tips: [2, '#3595CC'],time: 2000});
 		return
 	}
+	if(buttonFlag ==0){return;}buttonFlag =0;
 	 $.ajax({
 	        type: "POST",
 	        url: "/addreview",
@@ -90,10 +89,10 @@ $("#sendreview").on("click",function(){
 });
 
 $("#deleteNote").on("click",function(){
-	if(buttonFlag ==0){return;}buttonFlag =0;
 	layer.confirm('确定删除吗？', {
 	    btn: ['确定','取消'] //按钮
 	}, function(){
+		if(buttonFlag ==0){return;}buttonFlag =0;
 		 $.ajax({
 		        type: "POST",
 		        url: "/deleteNote",
@@ -175,7 +174,6 @@ function getReview(){
 	        success:function(data,textStatus){
 	        	layer.close(load);
 	        	if(data.status=="false"){
-	        		alert(222);
 	        		 location.href="/index";
 	        		 return;
 	        	}
@@ -184,8 +182,8 @@ function getReview(){
 	        	$.each(data.data,function(j, item) {
 	     		    var note1='<p><strong>'+((page-1)*10+j+1)+'#楼 : </strong>';
 	     		    var note2=item["content"]+'</p>';
-	     		    var note3='<p><span style="float: right">'
-	     		    var note4=timeFormat(item["time"],'yyyy-MM-dd:HH')+' | <span class="glyphicon glyphicon-user">'+item["uname"]+'</span></p><hr style="height:1px;border:none;border-top:1px dashed #0066CC;"/>';
+	     		    var note3='<p><span style="float: right">';
+	     		    var note4=timeFormat(item["time"],'yyyy-MM-dd HH:mm:ss')+' | <span class="glyphicon glyphicon-user">'+item["uname"]+'</span></span></p><hr style="height:1px;border:none;border-top:1px dashed #0066CC;"/>';
 	     		    showhtml = showhtml+note1+note2+note3+note4;
 	        	});
 	        	$("#reviews").append(showhtml);

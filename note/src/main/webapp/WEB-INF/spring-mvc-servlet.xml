@@ -159,6 +159,7 @@
 				<value>com.app.model.BlackUrl</value>
 				<value>com.app.model.DislikeUrl</value>
 				<value>com.app.model.LikeUrl</value>
+				<value>com.app.model.Message</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
