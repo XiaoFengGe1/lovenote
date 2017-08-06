@@ -57,7 +57,7 @@ function getMessage(){
 		        	if(data.status=="true"){
 		        		var messageTotal = data.total;
 			        	$.each(data.data,function(j, item) {
-			        		var name = item["uname"];
+			        		var name = item["name"];
 			        		if(name == null || name == ""){
 			        			name = "匿名";
 			        		}
@@ -113,7 +113,7 @@ function getMessageInit(){
 	        	if(data.status=="true"){
 	        		var messageTotal = data.total;
 		        	$.each(data.data,function(j, item) {
-		        		var name = item["uname"];
+		        		var name = item["name"];
 		        		if(name == null || name == ""){
 		        			name = "匿名";
 		        		}
