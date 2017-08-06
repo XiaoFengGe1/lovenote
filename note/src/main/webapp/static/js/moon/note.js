@@ -64,12 +64,17 @@ $("#sendreview").on("click",function(){
 		layer.tips('请输入评论','#sendreview',{tips: [2, '#3595CC'],time: 2000});
 		return
 	}
+	var content = $("#reviewContent").val().trim().replace(/[']/g,"");
+	if(content.length>1000){
+		layer.tips('输入字数不能大于1000个','#sendreview',{tips: [2, '#3595CC'],time: 2000});
+		return
+	}
 	if(buttonFlag ==0){return;}buttonFlag =0;
 	 $.ajax({
 	        type: "POST",
 	        url: "/addreview",
 	        async:true,
-	        data: {content:$("#reviewContent").val().trim().replace(/[']/g,"")},
+	        data: {content:content},
 	        dataType: "json",
 	        success:function(data,textStatus){
 	        	if(data.status=="true"){

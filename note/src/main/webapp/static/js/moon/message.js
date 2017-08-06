@@ -15,6 +15,10 @@ $("#sendMessage").on("click",function(){
 		return
 	}
 	var content = $("#messageContent").val().trim().replace(/[']/g,"");
+	if(content.length>1000){
+		layer.tips('输入字数不能大于1000个','#sendMessage',{tips: [2, '#3595CC'],time: 2000});
+		return
+	}
 	if(buttonFlag ==0){return;}buttonFlag =0;
 	 $.ajax({
 	        type: "POST",

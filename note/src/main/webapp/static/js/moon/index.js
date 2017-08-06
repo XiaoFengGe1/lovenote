@@ -53,7 +53,7 @@ $("#selectUser").change(function(){
 	}
 });
 $("#selectTime").change(function(){
-	var newDate = new Date()
+	var newDate = new Date();
 	var mydate1 = 0;
 	var mydate2 = newDate.getTime();
 	if($("#selectTime").val()=="自定义"){

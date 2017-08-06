@@ -53,6 +53,9 @@ public class ReviewController {
 			return hashMap;
 		} else {
 			String content = req.getParameter("content");
+			if (content.length() > 1000) {
+				content = content.substring(0, 1000);
+			}
 			content = StringUtil.getLegalStr(content);
 			String noteid = (String) session.getAttribute("lovelxfNoteId");
 			Review review = new Review();

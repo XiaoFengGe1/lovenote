@@ -32,6 +32,9 @@ public class MessageController {
 			uname = "";
 		}
 		String content = request.getParameter("content");
+		if (content.length() > 1000) {
+			content = content.substring(0, 1000);
+		}
 		Message message = new Message();
 		String ip = IpUtils.getIpAddr(request);
 		message.setName(uname);
