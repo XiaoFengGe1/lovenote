@@ -10,12 +10,11 @@ var buttonFlag = 1;
 $(document).ready(function(){
 	init();
 	getMainBlock();
-	$("#writeBtn").hide();
 	if(sessionStorage.isLogin == 1){
 		getToolMsg();
 		
 	}else{
-		 layer.tips('爱笔记是一个致力于创建和共享自己技术笔记的平台。登录后能体验更多个性功能。','#searchBtn',{tips: [3, '#3595CC'],time: 8800});
+		 layer.tips('爱笔记是一个致力于创建和共享自己技术笔记的平台。登录后能体验更多个性功能。','#searchBtn',{tips: [3, '#3595CC'],time: 1200});
 		$("#selectClass").hide();
 		$("#selectUser").hide();
 	}
