@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta name="viewport" http-equiv="Content-Type" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" content="text/html; charset=UTF-8">
-<meta name="keywords" content="笔记,爱笔记,记事本,lovenote,note,love" />
+<meta name="keywords" content="技术,博客,分享,笔记,爱笔记,记事本,lovenote,note,love" />
 <title>写笔记</title>
 <link href="/static/css/bootstrap.css" rel="stylesheet">
 <link href="/static/extend/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
