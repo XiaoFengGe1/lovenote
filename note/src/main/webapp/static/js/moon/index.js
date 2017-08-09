@@ -131,8 +131,7 @@ $(this).keydown(function (e){
 });
 	
 $(document).on("click",".addClick",function(){
-	if(buttonFlag ==0){return;}buttonFlag =0;
-	var id = $(this).attr("value");
+	/*var id = $(this).attr("value");
 	 $.ajax({
 	        type: "POST",
 	        url: "/addClick",
@@ -145,7 +144,7 @@ $(document).on("click",".addClick",function(){
 	         error:function(XMLHttpRequest, textStatus, errorThrown){
 	        	
 	         }
-	    });
+	    });*/
 	window.open("/note?id="+id);
 });
 
