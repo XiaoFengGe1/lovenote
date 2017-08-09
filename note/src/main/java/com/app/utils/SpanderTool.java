@@ -297,7 +297,10 @@ public class SpanderTool {
 				map.put("author", "");
 				map.put("content", webpage.getSummary());
 				list.add(map);
+				webpage = null;
 			}
+			webpages = null;
+			searchResult = null;
 		} else {
 			System.err.println("没有搜索到结果");
 		}

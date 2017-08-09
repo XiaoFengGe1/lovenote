@@ -87,9 +87,7 @@ public class NoteHome {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<Note> list = null;
 		if (keys == null || keys.length == 0) {
-			map.put("total", 0);
-			map.put("rows", list);
-			return map;
+			return findMainBlock(pageNum);
 		}
 		try {
 			String sql1 = "from note as c left join (select DISTINCT id,count(id) as countn from ((select id from note where concat(content,title) like '%"
@@ -131,7 +129,7 @@ public class NoteHome {
 			// runner.query(conn,"select id,title,uname,content,createtime,click,likenum from note where isdelete=0 order by likenum desc , click asc limit "+((pageNum-1)*10)+","+(pageNum*10-1),new
 			// BeanListHandler<>(Note.class));
 			list = jdbcTemplate
-					.query("select id,title,uname,createtime,click,likenum,part from note where isdelete=0 order by likenum desc , click desc limit "
+					.query("select id,title,uname,createtime,click,likenum,part from note where isdelete=0 order by createtime desc , likenum desc , click desc limit "
 							+ ((pageNum - 1) * 10) + ",10",
 							new BeanPropertyRowMapper(Note.class));
 			Collections.reverse(list);
@@ -149,9 +147,7 @@ public class NoteHome {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<Note> list = null;
 		if (keys == null || keys.length == 0) {
-			map.put("total", 0);
-			map.put("rows", list);
-			return map;
+			return findMainToolBlock(pageNum, hashmap);
 		}
 		String sql = "";
 		if (hashmap.get("classify").equals("全部")) {
@@ -226,7 +222,7 @@ public class NoteHome {
 				+ "' and '" + hashmap.get("toTime") + " 23:59:59' ";
 
 		try {
-			String sql2 = "and isdelete=0 order by  likenum desc , click desc ";
+			String sql2 = "and isdelete=0 order by createtime desc , likenum desc , click desc ";
 			// int num = (int)(long) runner.query(conn,
 			// "select count(id) from note where isdelete=0 ",new
 			// ScalarHandler());
