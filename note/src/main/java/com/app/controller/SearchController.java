@@ -51,7 +51,7 @@ public class SearchController {
 			hashMap.put("status", "timeout");
 			return hashMap;
 		}
-		uid = Integer.parseInt((String) session.getAttribute("lovelxfId"));
+		uid = StringUtil.parseInt(session.getAttribute("lovelxfId"));
 		DislikeUrl DislikeUrl = new DislikeUrl();
 		DislikeUrl.setDate(StringUtil.getTimeStr());
 		DislikeUrl.setUrl(url);
@@ -79,7 +79,7 @@ public class SearchController {
 			hashMap.put("status", "timeout");
 			return hashMap;
 		}
-		uid = Integer.parseInt((String) session.getAttribute("lovelxfId"));
+		uid = StringUtil.parseInt(session.getAttribute("lovelxfId"));
 		LikeUrl likeUrl = new LikeUrl();
 		likeUrl.setDate(StringUtil.getTimeStr());
 		likeUrl.setUrl(url);
@@ -172,8 +172,7 @@ public class SearchController {
 				list = fromQiandaunli(keyword, num);
 			}
 			if (!StringUtil.isBlank(name)) {
-				uid = Integer.parseInt((String) session
-						.getAttribute("lovelxfId"));
+				uid = StringUtil.parseInt(session.getAttribute("lovelxfId"));
 				list = filter(list, uid);
 			}
 			hashMap.put("status", "true");

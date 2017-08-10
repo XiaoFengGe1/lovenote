@@ -10,6 +10,16 @@ import java.util.Map;
 public class StringUtil {
 	static DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
 
+	public static int parseInt(Object str) {
+		String numStr = toString(str);
+		if (numStr.matches(VAR.matchNumber)) {
+			return Integer.parseInt(numStr);
+		} else {
+			System.err.println("StringUtil.parseInt.int转换错误。str=" + str);
+			return 0;
+		}
+	}
+
 	/**
 	 * @return 获取合法字符
 	 */
@@ -95,6 +105,13 @@ public class StringUtil {
 		return str.trim();
 	}
 
+	public static String toString(Object str) {
+		if (str == null) {
+			return "";
+		}
+		return toString(str.toString());
+	}
+
 	public static String getRandom() {
 		return "" + VAR.getSixRandom();
 	}
@@ -105,12 +122,7 @@ public class StringUtil {
 	}
 
 	public static void main(String[] args) {
-		long t1 = System.currentTimeMillis();
-		for (int i = 0; i < 10000; i++) {
-			String str = "@#$%^sdfhkfhiwsaufhiakus354212是否is分割sdfhkfhiwsaufhiakus354212sdfhkfhiwsaufhiakus354212";
-			System.out.println(getLegalStr(str));
-		}
-		long t2 = System.currentTimeMillis();
-		System.out.println(t2 - t1);
+		Integer i = 2;
+		System.out.println(i.toString());
 	}
 }

@@ -173,7 +173,7 @@ public class UserController {
 			hashMap.put("status", "timeout");
 			return hashMap;
 		}
-		int uid = Integer.parseInt((String) session.getAttribute("lovelxfId"));
+		int uid = StringUtil.parseInt(session.getAttribute("lovelxfId"));
 		String type = req.getParameter("type");
 		String startTime = req.getParameter("startTime");
 		String endTime = req.getParameter("endTime");
