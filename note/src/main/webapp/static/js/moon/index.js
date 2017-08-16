@@ -131,8 +131,8 @@ $(this).keydown(function (e){
 });
 	
 $(document).on("click",".addClick",function(){
-	/*var id = $(this).attr("value");
-	 $.ajax({
+	var id = $(this).attr("value");
+	/* $.ajax({
 	        type: "POST",
 	        url: "/addClick",
 	        async:true,
