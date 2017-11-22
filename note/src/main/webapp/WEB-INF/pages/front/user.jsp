@@ -58,9 +58,9 @@
           <div class="sidebar-module">
             <img class="lxfImgM" id="toxiangimg" src="/static/img/love.jpg"></img>
             <form id="myform" action="toxiang.do" method="post" enctype="multipart/form-data">  
-				<button class="file btn">
+				<!-- <button class="file btn">
 				<input type="file"  name="file" id="toxaing" onchange="filesize(this)" accept="image/*"/>更换头像
-				</button>
+				</button> -->
 			</form>  
           </div>
           <div class="sidebar-module ">

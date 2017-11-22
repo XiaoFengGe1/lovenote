@@ -11,8 +11,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import net.coobird.thumbnailator.Thumbnails;
-
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,6 +33,8 @@ import com.app.service.ZanService;
 import com.app.utils.IpUtils;
 import com.app.utils.StringUtil;
 
+import net.coobird.thumbnailator.Thumbnails;
+
 @Controller
 public class NoteController {
 	@Resource
@@ -50,7 +50,7 @@ public class NoteController {
 	String uname = "";
 	String flag = "false";
 
-	public static final String SAVE_PATH = "/upload/logo/";// 图片保存根目录
+	public static final String SAVE_PATH = "/";// 图片保存根目录
 	public static final String SMALL_PIC_SUFFIX = "_350x250.jpg";// 缩略图后缀名
 	public static final int FINAL_WIDTH = 350, FINAL_HEIGHT = 250;// 裁剪后的图片尺寸
 
@@ -76,8 +76,7 @@ public class NoteController {
 
 	@RequestMapping(value = "/fixNote", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> fixNote(Note note, HttpServletRequest req,
-			HttpSession session) {
+	public HashMap<String, Object> fixNote(Note note, HttpServletRequest req, HttpSession session) {
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		uname = (String) session.getAttribute("lovelxfName");
 		Note oldNote = new Note();
@@ -112,8 +111,7 @@ public class NoteController {
 
 	@RequestMapping(value = "/getNote", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> getNote(HttpSession session,
-			HttpServletRequest request) {
+	public HashMap<String, Object> getNote(HttpSession session, HttpServletRequest request) {
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		try {
 			uname = (String) session.getAttribute("lovelxfName");
@@ -122,6 +120,10 @@ public class NoteController {
 			uname = "";
 		}
 		String idStr = (String) session.getAttribute("lovelxfNoteId");
+		if (StringUtil.isBlank(idStr)) {
+			hashMap.put("status", "false");
+			return hashMap;
+		}
 		Note note = null;
 		try {
 			int id = Integer.parseInt(idStr);
@@ -156,8 +158,7 @@ public class NoteController {
 
 	@RequestMapping(value = "/addClick", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> addClick(HttpServletRequest req,
-			HttpSession session) {
+	public HashMap<String, Object> addClick(HttpServletRequest req, HttpSession session) {
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		Note note = new Note();
 		String idStr = req.getParameter("noteId");
@@ -177,8 +178,7 @@ public class NoteController {
 
 	@RequestMapping(value = "/getMain", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> getMain(HttpServletRequest req,
-			HttpSession session) {
+	public HashMap<String, Object> getMain(HttpServletRequest req, HttpSession session) {
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		// Note note = new Note();
 		try {
@@ -189,8 +189,7 @@ public class NoteController {
 		}
 		addClick(req, uname);
 		try {
-			String[] keyWords = req.getParameter("keyWord").toString()
-					.split("\\s+");
+			String[] keyWords = req.getParameter("keyWord").toString().split("\\s+");
 			HashMap<String, Object> data = null;
 			String page = req.getParameter("page");
 			data = noteService.findMain(keyWords, Integer.parseInt(page));
@@ -206,8 +205,7 @@ public class NoteController {
 
 	@RequestMapping(value = "/getMainBlock", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> getMainBlock(HttpServletRequest req,
-			HttpSession session) {
+	public HashMap<String, Object> getMainBlock(HttpServletRequest req, HttpSession session) {
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		// Note note = new Note();
 		try {
@@ -233,8 +231,7 @@ public class NoteController {
 
 	@RequestMapping(value = "/getMainTool", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> getMainTool(HttpServletRequest req,
-			HttpSession session) {
+	public HashMap<String, Object> getMainTool(HttpServletRequest req, HttpSession session) {
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		try {
 			uname = (String) session.getAttribute("lovelxfName");
@@ -245,8 +242,7 @@ public class NoteController {
 		// Note note = new Note();
 		addClick(req, uname);
 		try {
-			String[] keyWords = req.getParameter("keyWord").toString()
-					.split("\\s+");
+			String[] keyWords = req.getParameter("keyWord").toString().split("\\s+");
 			String page = req.getParameter("page");
 			String classifyT = req.getParameter("classify");
 			String titleT = req.getParameter("title");
@@ -265,8 +261,7 @@ public class NoteController {
 			map.put("toTime", toTime);
 
 			HashMap<String, Object> data = null;
-			data = noteService.findMainTool(keyWords, Integer.parseInt(page),
-					map);
+			data = noteService.findMainTool(keyWords, Integer.parseInt(page), map);
 			hashMap.put("status", "true");
 			hashMap.put("data", data);
 			return hashMap;
@@ -279,8 +274,7 @@ public class NoteController {
 
 	@RequestMapping(value = "/getMainToolBlock", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> getMainToolBlock(HttpServletRequest req,
-			HttpSession session) {
+	public HashMap<String, Object> getMainToolBlock(HttpServletRequest req, HttpSession session) {
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		try {
 			uname = (String) session.getAttribute("lovelxfName");
@@ -322,8 +316,7 @@ public class NoteController {
 
 	@RequestMapping(value = "/deleteNote", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> deleteNote(HttpServletRequest req,
-			HttpSession session) {
+	public HashMap<String, Object> deleteNote(HttpServletRequest req, HttpSession session) {
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		// String uname =(String) session.getAttribute("lovelxfName");
 		Note note = new Note();
@@ -374,9 +367,8 @@ public class NoteController {
 	}
 
 	@RequestMapping(value = "/toxiang.do", method = RequestMethod.POST)
-	public String upload(
-			@RequestParam(value = "file", required = false) MultipartFile file,
-			HttpServletRequest request, ModelMap model, HttpSession session) {
+	public String upload(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request,
+			ModelMap model, HttpSession session) {
 		try {
 			uname = (String) session.getAttribute("lovelxfName");
 		} catch (Exception e) {
@@ -386,8 +378,7 @@ public class NoteController {
 		if (uname.equals("")) {
 			return "redirect:/user";
 		}
-		String path = request.getSession().getServletContext()
-				.getRealPath("upload");
+		String path = request.getSession().getServletContext().getRealPath("upload");
 		String fileName = file.getOriginalFilename();
 		fileName = new Date().getTime() + "." + getExtensionName(fileName);
 		System.out.println(path);
@@ -406,25 +397,21 @@ public class NoteController {
 		user1 = userService.findByName(uname);
 		user1.setPic(savepath);
 		userService.update(user1);
-		model.addAttribute("fileUrl", request.getContextPath() + "/upload/"
-				+ fileName);
+		model.addAttribute("fileUrl", request.getContextPath() + "/upload/" + fileName);
 		return "redirect:/user";
 	}
 
 	@RequestMapping(value = "/uploadImage", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public FileInputResponseModel upload(HttpServletRequest request,
-			MultipartFile file) throws Exception {
+	public FileInputResponseModel upload(HttpServletRequest request, MultipartFile file) throws Exception {
 		String finalName = fileUpload(file, request);
 		// fileinput组件需要包含图片地址信息的json
 		FileInputResponseModel responseModel = new FileInputResponseModel();
 		responseModel.setError("");
 		List<String> initialPreview = new ArrayList<String>();
-		initialPreview.add("<img src='" + SAVE_PATH + finalName
-				+ "' class='file-preview-image'>");
+		initialPreview.add("<img src='" + SAVE_PATH + finalName + "' class='file-preview-image'>");
 		List<FileInputInitialPreviewConfigModel> configList = new ArrayList<FileInputInitialPreviewConfigModel>();
-		configList.add(new FileInputInitialPreviewConfigModel(
-				finalName + "hah", "120px", "article_delete_pic", 0));
+		configList.add(new FileInputInitialPreviewConfigModel(finalName + "hah", "120px", "article_delete_pic", 0));
 		responseModel.setAppend(true);
 		responseModel.setFileName(finalName);
 		responseModel.setInitialPreview(initialPreview);
@@ -432,13 +419,11 @@ public class NoteController {
 	}
 
 	// 工具方法，SpringMVC方式图片上传
-	private String fileUpload(MultipartFile file, HttpServletRequest request)
-			throws IOException, InterruptedException {
+	private String fileUpload(MultipartFile file, HttpServletRequest request) throws IOException, InterruptedException {
 		String fileName = null;
 		if (!file.isEmpty()) {
 			fileName = System.currentTimeMillis() + ".jpg";
-			File savePath = new File(request.getServletContext().getRealPath(
-					SAVE_PATH));
+			File savePath = new File(request.getServletContext().getRealPath(SAVE_PATH));
 			if (!savePath.exists())
 				savePath.mkdirs();
 			File saveFile = new File(savePath, fileName);
@@ -452,8 +437,7 @@ public class NoteController {
 	// 工具方法，删除文件名包含指定字符的文件
 	public void deleteFilesLikeName(File file, String likeName) {
 		if (file.isFile()) {
-			String temp = file.getName().substring(0,
-					file.getName().lastIndexOf("."));
+			String temp = file.getName().substring(0, file.getName().lastIndexOf("."));
 			if (temp.indexOf(likeName) != -1) {
 				file.delete();
 			}
