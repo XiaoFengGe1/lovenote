@@ -37,6 +37,10 @@ public class Note implements java.io.Serializable {
 	private Integer click;
 	private Integer likenum;
 	private Integer unlike;
+	/**
+	 * 是否为自己的
+	 */
+	private Integer isSelf;
 	private Set<Review> reviews = new HashSet<Review>(0);
 
 	public Note() {
@@ -58,9 +62,8 @@ public class Note implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Note(String uname, String title, String content, Date createtime,
-			String type, String extendone, String extendtwo, Integer isdelete,
-			String part, Integer click, Integer likenum, Integer unlike,
+	public Note(String uname, String title, String content, Date createtime, String type, String extendone,
+			String extendtwo, Integer isdelete, String part, Integer click, Integer likenum, Integer unlike,
 			Set<Review> reviews) {
 		this.uname = uname;
 		this.title = title;
@@ -195,6 +198,14 @@ public class Note implements java.io.Serializable {
 
 	public void setUnlike(Integer unlike) {
 		this.unlike = unlike;
+	}
+
+	public Integer getIsSelf() {
+		return isSelf;
+	}
+
+	public void setIsSelf(Integer isSelf) {
+		this.isSelf = isSelf;
 	}
 
 	/*

@@ -89,6 +89,10 @@ public class NoteController {
 			hashMap.put("status", "false");
 			return hashMap;
 		}
+		if (!oldNote.getUname().equals(uname)) {
+			hashMap.put("status", "timeout");
+			return hashMap;
+		}
 		if (oldNote.getTitle().equals(note.getTitle())) {// 说明标题并未更改。
 			note.setUname(uname);
 			note.setCreatetime(oldNote.getCreatetime());
@@ -137,7 +141,7 @@ public class NoteController {
 					;
 				}
 				if (note.getUname().equals(uname)) { // 借用unlike来给前端判断是否为本人查看
-					note.setUnlike(1);
+					note.setIsSelf(1);
 				}
 				note.setClick(note.getClick() + 1);
 				noteService.update(note);

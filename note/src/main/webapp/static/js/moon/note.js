@@ -34,7 +34,7 @@ $(document).ready(function(){
 	        		 $("#likeNote").html('<span class="glyphicon glyphicon-heart"></span>&nbsp已赞');
 	        		 $("#likeNote").attr("disabled","true");
 	        	}
-	        	if(data.data["unlike"]==1){
+	        	if(data.data["isSelf"]==1){
 	        		$("#editNote").show();
 	        		$("#deleteNote").show();
 	        	}

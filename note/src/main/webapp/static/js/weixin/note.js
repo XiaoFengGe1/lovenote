@@ -30,7 +30,7 @@ $(document).ready(function(){
 	        	$("meta[name='description']").attr("content","标题:"+data.data["title"]); 
 	        	$("#timeName").html(timeFormat(data.data["createtime"],'yyyy-MM-dd HH:mm:ss')+" <span class='glyphicon glyphicon-tree-conifer'>"+data.data["type"]+" <span class='glyphicon glyphicon-user'>"+data.data["uname"]+" <span class='glyphicon glyphicon-eye-open'>"+data.data["click"]+" <span class='glyphicon glyphicon-heart'>"+data.data["likenum"]);
 	        	$("#content").html(""+data.data["content"]);
-	        	if(data.data["unlike"]==1){
+	        	if(data.data["isSelf"]==1){
 	        		$("#editNoteTd").css("visibility","visible");
 	         		$("#deleteNoteTd").css("visibility","visible");
 	         	}
