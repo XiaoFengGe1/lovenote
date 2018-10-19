@@ -6,10 +6,10 @@
 <meta name="viewport" http-equiv="Content-Type" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" content="text/html; charset=UTF-8">
 <meta name="keywords" content="技术,博客,分享,笔记,爱笔记,记事本,lovenote,note,love" />
 <title>个人中心</title>
-<link href="/static/css/bootstrap.css" rel="stylesheet">
-<link href="/static/css/jquery.datetimepicker.css" rel="stylesheet">
-<link href="/static/css/blog.css" rel="stylesheet">
-<link href="/static/css/lxfcss.css" rel="stylesheet">
+<link href="static/css/bootstrap.css" rel="stylesheet">
+<link href="static/css/jquery.datetimepicker.css" rel="stylesheet">
+<link href="static/css/blog.css" rel="stylesheet">
+<link href="static/css/lxfcss.css" rel="stylesheet">
 <style>
 .file {
     position: relative;
@@ -56,7 +56,7 @@
      
     <div class="col-sm-2  blog-sidebar">
           <div class="sidebar-module">
-            <img class="lxfImgM" id="toxiangimg" src="/static/img/love.jpg"></img>
+            <img class="lxfImgM" id="toxiangimg" src="static/img/love.jpg"></img>
             <form id="myform" action="toxiang.do" method="post" enctype="multipart/form-data">  
 				<!-- <button class="file btn">
 				<input type="file"  name="file" id="toxaing" onchange="filesize(this)" accept="image/*"/>更换头像
@@ -190,14 +190,14 @@
     </div><!-- /.container -->
 
    <%@ include file="foot.jsp"%>
-<script src="/static/js/jquery-2.2.0.js"></script>
-<script src="/static/extend/layer/layer.js"></script>
-<script type="text/javascript" src="/static/extend/umeditor/umeditor.config.js"></script>
-<script type="text/javascript" src="/static/extend/umeditor/umeditor.min.js"></script>
-<script type="text/javascript" src="/static/extend/umeditor/lang/zh-cn/zh-cn.js"></script>
-<script src="/static/js/md5.js"></script>
-<script src="/static/js/jquery.datetimepicker.js"></script>
-<script type="text/javascript" src="/static/js/moon/header.js"></script>
-<script src="/static/js/moon/user.js"></script>
+<script src="static/js/jquery-2.2.0.js"></script>
+<script src="static/extend/layer/layer.js"></script>
+<script type="text/javascript" src="static/extend/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" src="static/extend/umeditor/umeditor.min.js"></script>
+<script type="text/javascript" src="static/extend/umeditor/lang/zh-cn/zh-cn.js"></script>
+<script src="static/js/md5.js"></script>
+<script src="static/js/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="static/js/moon/header.js"></script>
+<script src="static/js/moon/user.js"></script>
 </body>
 </html>

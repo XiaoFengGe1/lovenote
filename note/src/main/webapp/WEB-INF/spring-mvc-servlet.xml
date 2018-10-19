@@ -34,8 +34,8 @@
 	<mvc:annotation-driven validator="validator" conversion-service="conversionService"/> -->
 
 	<!-- 静态资源的访问 -->
-	<mvc:resources mapping="/upload/**" location="/upload/" />
-	<mvc:resources mapping="/static/**" location="/static/" />
+	<mvc:resources mapping="upload/**" location="upload/" />
+	<mvc:resources mapping="static/**" location="static/" />
 	<!-- <mvc:resources mapping="/assets/**" location="/assets/" />
     <mvc:resources mapping="/img/**" location="/img/" />
     <mvc:resources mapping="/js/**" location="/js/" />

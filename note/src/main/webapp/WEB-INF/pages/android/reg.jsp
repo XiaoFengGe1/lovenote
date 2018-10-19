@@ -5,8 +5,8 @@
 <head>
 <meta name="viewport" http-equiv="Content-Type" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" content="text/html; charset=UTF-8">
 <title>lovenote</title>
-<link href="/static/css/bootstrap.css" rel="stylesheet">
-<link href="/static/css/login.css" rel="stylesheet">
+<link href="static/css/bootstrap.css" rel="stylesheet">
+<link href="static/css/login.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -37,9 +37,9 @@
         <button class="btn btn-lg btn-primary btn-block"  id="reg">发送验证码</button>
       </div>
     </div> <!-- /container -->
-<script src="/static/js/jquery-2.2.0.js"></script>
-<script src="/static/extend/layer/layer.js"></script>
-<script src="/static/js/md5.js"></script>
-<script src="/static/js/android/reg.js"></script>
+<script src="static/js/jquery-2.2.0.js"></script>
+<script src="static/extend/layer/layer.js"></script>
+<script src="static/js/md5.js"></script>
+<script src="static/js/android/reg.js"></script>
 </body>
 </html>

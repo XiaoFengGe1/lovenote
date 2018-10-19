@@ -7,10 +7,10 @@
 <meta property="qc:admins" content="1534023072647654066375" />
 <meta name="keywords" content="技术,博客,分享,笔记,爱笔记,记事本,lovenote,note,love" />
 <title>lovenote</title>
-<link href="/static/css/bootstrap.css" rel="stylesheet">
-<link href="/static/css/jquery.datetimepicker.css" rel="stylesheet">
-<link href="/static/css/blog.css" rel="stylesheet">
-<link href="/static/css/lxfcss.css" rel="stylesheet">
+<link href="static/css/bootstrap.css" rel="stylesheet">
+<link href="static/css/jquery.datetimepicker.css" rel="stylesheet">
+<link href="static/css/blog.css" rel="stylesheet">
+<link href="static/css/lxfcss.css" rel="stylesheet">
 </head>
 <body  style="background-color:#dfdddd">
 <%@ include file="header.jsp"%> 
@@ -83,11 +83,11 @@
     </div><!-- /.container -->
 
    <%@ include file="foot.jsp"%>
-<script src="/static/js/jquery-2.2.0.js"></script>
-<script src="/static/extend/layer/layer.js"></script>
-<script src="/static/js/bootstrap.js"></script>
-<script src="/static/js/jquery.datetimepicker.js"></script>
-<script type="text/javascript" src="/static/js/moon/header.js"></script>
-<script src="/static/js/moon/index.js"></script>
+<script src="static/js/jquery-2.2.0.js"></script>
+<script src="static/extend/layer/layer.js"></script>
+<script src="static/js/bootstrap.js"></script>
+<script src="static/js/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="static/js/moon/header.js"></script>
+<script src="static/js/moon/index.js"></script>
 </body>
 </html>

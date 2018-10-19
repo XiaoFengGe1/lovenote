@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,7 @@ import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 public class NoteController {
+	Logger log = Logger.getLogger(NoteController.class);
 	@Resource
 	private UserService userService;
 	@Resource
@@ -407,7 +409,9 @@ public class NoteController {
 
 	@RequestMapping(value = "/uploadImage", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public FileInputResponseModel upload(HttpServletRequest request, MultipartFile file) throws Exception {
+	public FileInputResponseModel upload(HttpServletRequest request, MultipartFile file, HttpSession session) throws Exception {
+		String uname = (String) session.getAttribute("lovelxfName");
+		log.info("保存图片"+file.getName()+";uname="+uname);
 		String finalName = fileUpload(file, request);
 		// fileinput组件需要包含图片地址信息的json
 		FileInputResponseModel responseModel = new FileInputResponseModel();

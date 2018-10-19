@@ -17,10 +17,10 @@
           <a class="blog-nav-item clickme" href="#" id="index"><span class="glyphicon glyphicon-home"></span>&nbsp首页</a>
           <a class="blog-nav-item clickme" href="#" id="user" style="display:none"><span class="glyphicon glyphicon-user"></span>&nbsp个人中心</a>
           <a class="blog-nav-item btn" id="weixin" style="float:right"><span class="glyphicon glyphicon-qrcode"></span>&nbsp;微信公众号</a>
-          <!-- <a class="blog-nav-item" style="float:right" href="/static/res/lovenote.apk"><span class="glyphicon glyphicon-save"></span>&nbsp;Android版下载</a> -->
+          <!-- <a class="blog-nav-item" style="float:right" href="static/res/lovenote.apk"><span class="glyphicon glyphicon-save"></span>&nbsp;Android版下载</a> -->
           <a class="blog-nav-item" id="about" style="float:right" href="#">&nbsp;关于</a>
       	  <a class="blog-nav-item" id="message" style="float:right" href="#">留言板</a>
         </nav>
       </div>
-        <img alt="" id="weixinPic" class="weixinPic" src="/static/img/weixin.jpg">
+        <img alt="" id="weixinPic" class="weixinPic" src="static/img/weixin.jpg">
     </div>

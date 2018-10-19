@@ -59,6 +59,7 @@ public class LoginController {
 		return "/front/login";
 	}
 
+	
 	@RequestMapping(value = "/about", method = RequestMethod.GET)
 	public String about() {
 		return "/front/about";

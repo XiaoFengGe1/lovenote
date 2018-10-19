@@ -7,9 +7,9 @@
 <meta name="description" content="" id="mymeta"/>
 <meta name="keywords" content="笔记,爱笔记,记事本,lovenote,note,love" />
 <title>lovenote</title>
-<link href="/static/css/bootstrap.css" rel="stylesheet">
-<link href="/static/css/blog.css" rel="stylesheet">
-<link href="/static/css/lxfcssweixin.css" rel="stylesheet">
+<link href="static/css/bootstrap.css" rel="stylesheet">
+<link href="static/css/blog.css" rel="stylesheet">
+<link href="static/css/lxfcssweixin.css" rel="stylesheet">
 <style type="text/css">
 img{
   max-height: 80%;
@@ -89,10 +89,10 @@ img{
  		
  	</div><!-- /.container -->
    <%@ include file="foot.jsp"%>
-<script src="/static/js/jquery-2.2.0.js"></script>
-<script src="/static/extend/layer/layer.js"></script>
+<script src="static/js/jquery-2.2.0.js"></script>
+<script src="static/extend/layer/layer.js"></script>
 <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="/static/js/android/header.js"></script>
-<script src="/static/js/android/note.js"></script>
+<script type="text/javascript" src="static/js/android/header.js"></script>
+<script src="static/js/android/note.js"></script>
 </body>
 </html>

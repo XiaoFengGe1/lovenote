@@ -6,10 +6,10 @@
 <meta name="viewport" http-equiv="Content-Type" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" content="text/html; charset=UTF-8">
 <meta name="keywords" content="笔记,爱笔记,记事本,lovenote,note,love" />
 <title>写笔记</title>
-<link href="/static/css/bootstrap.css" rel="stylesheet">
-<link href="/static/extend/umeditorweixin/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-<link href="/static/css/blog.css" rel="stylesheet">
-<link href="/static/css/lxfcssweixin.css" rel="stylesheet">
+<link href="static/css/bootstrap.css" rel="stylesheet">
+<link href="static/extend/umeditorweixin/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<link href="static/css/blog.css" rel="stylesheet">
+<link href="static/css/lxfcssweixin.css" rel="stylesheet">
 </head >
 <body>
 <%@ include file="header.jsp"%> 
@@ -37,12 +37,12 @@
     </div><!-- /.container -->
 
    <%@ include file="foot.jsp"%>
-<script src="/static/js/jquery-2.2.0.js"></script>
-<script src="/static/extend/layer/layer.js"></script>
-<script type="text/javascript" src="/static/extend/umeditorweixin/umeditorweixin.config.js"></script>
-<script type="text/javascript" src="/static/extend/umeditorweixin/umeditor.min.js"></script>
-<script type="text/javascript" src="/static/extend/umeditorweixin/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript" src="/static/js/weixin/header.js"></script>
-<script src="/static/js/weixin/write.js"></script>
+<script src="static/js/jquery-2.2.0.js"></script>
+<script src="static/extend/layer/layer.js"></script>
+<script type="text/javascript" src="static/extend/umeditorweixin/umeditorweixin.config.js"></script>
+<script type="text/javascript" src="static/extend/umeditorweixin/umeditor.min.js"></script>
+<script type="text/javascript" src="static/extend/umeditorweixin/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="static/js/weixin/header.js"></script>
+<script src="static/js/weixin/write.js"></script>
 </body>
 </html>

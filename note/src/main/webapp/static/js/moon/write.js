@@ -1,8 +1,9 @@
 /**
  * 
  */
-var um = UM.getEditor('myEditor');
-window.UEDITOR_HOME_URL = "/upload";
+
+window.UEDITOR_HOME_URL = "static/extend/ueditor/";
+var ume = UE.getEditor('myEditor');
 var load;
 var noteId=0;
 var title;
@@ -40,7 +41,7 @@ $(document).ready(function(){
 		        	}
 		        	title = data.data["title"];
 		        	$("#titleInput").val(title);
-		        	UM.getEditor('myEditor').setContent(data.data["content"]);
+		        	ume.ready(function() {ume.setContent(data.data["content"]);});
 		        	nowType = data.data["type"];
 		               },
 		         error:function(XMLHttpRequest, textStatus, errorThrown){
@@ -60,7 +61,7 @@ $("#saveBtn").on("click",function(){
 		});
 		return;
 	}
-	if(UM.getEditor('myEditor').getContent()==""){
+	if(ume.getContent()==""){
 		layer.tips('请输入正文', '#saveBtn', {
 		    tips: [1, '#3595CC'],
 		    time: 1000
@@ -68,7 +69,7 @@ $("#saveBtn").on("click",function(){
 		return;
 	}
 	if(buttonFlag ==0){return;}buttonFlag =0;
-	var part = UM.getEditor('myEditor').getContentTxt();
+	var part = ume.getContentTxt();
 	part = part.replace(/<[^>]+>/g,"");
 	part = part.replace(/[\r\n]/g,"");
 	part = part.replace(/[ ]/g,"");
@@ -83,7 +84,7 @@ $("#saveBtn").on("click",function(){
 		        type: "POST",
 		        url: "/addNote",
 		        async:true,
-		        data: {type:$("#selectClass").val(),title:mytitle,content:UM.getEditor('myEditor').getContent(),part:part},
+		        data: {type:$("#selectClass").val(),title:mytitle,content:ume.getContent(),part:part},
 		        dataType: "json",
 		        beforeSend: function(XMLHttpRequest){
 		       	   load = layer.load(0, {shade: false});
@@ -96,7 +97,7 @@ $("#saveBtn").on("click",function(){
 		        	if(data.status == "true"){
 		        		layer.tips('恭喜您，发布成功','#saveBtn',{tips: [2, '#3595CC'],time: 2000});
 		        		$("#titleInput").val("");
-		        		UM.getEditor('myEditor').execCommand('cleardoc');
+		        		ume.execCommand('cleardoc');
 		        	}else if(data.status == "has"){
 		        		 layer.tips('标题已存在，请重命名','#saveBtn',{tips: [2, '#3595CC'],time: 1000});
 		        	}else if(data.status=="timeout"){
@@ -119,7 +120,7 @@ $("#saveBtn").on("click",function(){
 		        type: "POST",
 		        url: "/fixNote",
 		        async:true,
-		        data: {type:$("#selectClass").val(),title:mytitle,content:UM.getEditor('myEditor').getContent(),id:noteId,part:part},
+		        data: {type:$("#selectClass").val(),title:mytitle,content:ume.getContent(),id:noteId,part:part},
 		        dataType: "json",
 		        beforeSend: function(XMLHttpRequest){
 		       	   load = layer.load(0, {shade: false});
